@@ -5,7 +5,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { 
   Github, ExternalLink, Plus, Trash2, Code, Mail, Linkedin, User, Briefcase, X, 
   Phone, MapPin, Camera, Brain, Terminal, Database, ArrowRight, Moon, Sun, 
-  CheckCircle, Send, Search, PenTool, Zap, Clock, AlertCircle, Cpu, ShieldCheck, Microscope, Flame, Blocks, Wrench, GitBranch, Users, ClipboardList, BookOpen, Lightbulb, Target, Lock, Server, Table, Key, Hammer, MessageCircle, FileText, CheckSquare, Globe, Wifi, Layers, Monitor, Network, FileCheck, Menu
+  CheckCircle, Send, Search, PenTool, Zap, Clock, AlertCircle, Cpu, ShieldCheck, Microscope, Flame, Blocks, Wrench, GitBranch, Users, ClipboardList, BookOpen, Lightbulb, Target, Lock, Server, Table, Key, Hammer, MessageCircle, FileText, CheckSquare, Globe, Wifi, Layers, Monitor, Network, FileCheck, Menu, ArrowDown
 } from 'lucide-react';
 
 // ==========================================
@@ -74,7 +74,7 @@ const styles = `
 `;
 
 // ==========================================
-// TEIL 1: DEIN PROJEKT (Copywriting Landingpage) - VOLLSTÄNDIG
+// TEIL 1: DEIN PROJEKT (Copywriting Landingpage) - MOBILE OPTIMIZED
 // ==========================================
 
 const CopywritingLandingProject = ({ onBack }) => {
@@ -138,54 +138,56 @@ const CopywritingLandingProject = ({ onBack }) => {
         <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4 flex justify-between items-center bg-white/90 backdrop-blur-md border-b border-slate-200">
            <div 
              onClick={onBack} 
-             className="text-2xl font-extrabold tracking-tight uppercase cursor-pointer hover:opacity-80 transition-opacity"
+             className="text-lg md:text-2xl font-extrabold tracking-tight uppercase cursor-pointer hover:opacity-80 transition-opacity truncate mr-4"
              title="Zurück zum Portfolio"
            >
-              PD<span className="text-orange-500">.COPYWRITER</span>
+              PD<span className="text-orange-500">.COPY</span>
            </div>
            
-           <button onClick={onBack} className="border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white bg-white px-4 py-2 rounded-full font-bold uppercase tracking-widest flex items-center gap-2 transition-all shadow-lg text-sm">
-             <X size={18} /> Schließen
+           <button onClick={onBack} className="border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white bg-white px-3 py-1.5 md:px-4 md:py-2 rounded-full font-bold uppercase tracking-widest flex items-center gap-2 transition-all shadow-lg text-xs md:text-sm whitespace-nowrap">
+             <X size={16} /> <span className="hidden md:inline">Schließen</span>
            </button>
         </nav>
 
         {/* HERO - Padding Top erhöht wegen fester Nav */}
-        <section className="pt-40 pb-20 px-6 text-center max-w-6xl mx-auto">
-            <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight">Worte. Wirkung. <span className="text-orange-500">Umsatz.</span></h1>
-            <p className="text-xl text-slate-500 max-w-2xl mx-auto mb-10">Premium Copywriting & SEO. Ich verwandle Besucher in Kunden. Ohne Meetings, rein schriftlich.</p>
-            <a href="#audit" className="bg-orange-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-orange-600 transition shadow-xl inline-flex items-center gap-2">
+        <section className="pt-32 pb-10 px-6 text-center max-w-6xl mx-auto">
+            <h1 className="text-4xl md:text-7xl font-extrabold mb-6 tracking-tight">Worte. Wirkung. <span className="text-orange-500 block md:inline">Umsatz.</span></h1>
+            <p className="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto mb-10">Premium Copywriting & SEO. Ich verwandle Besucher in Kunden. Ohne Meetings, rein schriftlich.</p>
+            <a href="#audit" className="bg-orange-500 text-white px-6 py-3 md:px-8 md:py-4 rounded-full font-bold text-base md:text-lg hover:bg-orange-600 transition shadow-xl inline-flex items-center gap-2">
                Kostenlose Analyse <ArrowRight />
             </a>
         </section>
 
-        {/* BROWSER SLIDER */}
-        <section className="px-6 pb-32">
+        {/* BROWSER SLIDER - MOBILE OPTIMIZED */}
+        <section className="px-4 md:px-6 pb-20 md:pb-32">
+          {/* Change aspect ratio based on screen size: flexible height on mobile, fixed 16/9 on desktop */}
           <div className="max-w-5xl mx-auto border-4 border-slate-200 rounded-xl overflow-hidden shadow-2xl bg-white relative">
-             <div className="h-10 bg-slate-100 border-b flex items-center px-4 gap-2">
-                <div className="flex gap-1.5"><div className="w-3 h-3 rounded-full bg-red-400"></div><div className="w-3 h-3 rounded-full bg-yellow-400"></div><div className="w-3 h-3 rounded-full bg-green-400"></div></div>
-                <div className="flex-1 bg-white mx-4 rounded text-xs text-center py-1 text-gray-500 font-mono">
+             <div className="h-8 md:h-10 bg-slate-100 border-b flex items-center px-4 gap-2">
+                <div className="flex gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-red-400"></div><div className="w-2.5 h-2.5 rounded-full bg-yellow-400"></div><div className="w-2.5 h-2.5 rounded-full bg-green-400"></div></div>
+                <div className="flex-1 bg-white mx-4 rounded text-[10px] md:text-xs text-center py-1 text-gray-500 font-mono truncate">
                   {isAfterMode ? industries[activeIndustry].after.url : industries[activeIndustry].before.url}
                 </div>
              </div>
              
-             <div className="relative aspect-[16/9] group">
-                <div className={`absolute inset-0 flex flex-col items-center justify-center text-center p-12 transition-all duration-500 ${isAfterMode ? industries[activeIndustry].after.bgClass : industries[activeIndustry].before.bgClass} ${isAfterMode ? industries[activeIndustry].after.textClass : industries[activeIndustry].before.textClass}`}>
-                   <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">{isAfterMode ? industries[activeIndustry].after.headline : industries[activeIndustry].before.headline}</h2>
-                   <p className="text-lg mb-8 max-w-xl mx-auto opacity-90">{isAfterMode ? industries[activeIndustry].after.sub : industries[activeIndustry].before.sub}</p>
-                   <button className={`px-8 py-3 font-bold rounded ${isAfterMode ? 'bg-orange-500 text-white shadow-lg transform scale-105' : 'border-2 border-current'}`}>
+             {/* Use 'min-h' instead of aspect ratio on mobile to fit content */}
+             <div className="relative min-h-[450px] md:aspect-[16/9] group">
+                <div className={`absolute inset-0 flex flex-col items-center justify-center text-center p-8 md:p-12 transition-all duration-500 ${isAfterMode ? industries[activeIndustry].after.bgClass : industries[activeIndustry].before.bgClass} ${isAfterMode ? industries[activeIndustry].after.textClass : industries[activeIndustry].before.textClass}`}>
+                   <h2 className="text-2xl md:text-5xl font-bold mb-4 md:mb-6 leading-tight">{isAfterMode ? industries[activeIndustry].after.headline : industries[activeIndustry].before.headline}</h2>
+                   <p className="text-base md:text-lg mb-8 max-w-xl mx-auto opacity-90 leading-relaxed">{isAfterMode ? industries[activeIndustry].after.sub : industries[activeIndustry].before.sub}</p>
+                   <button className={`px-6 py-3 md:px-8 md:py-3 font-bold rounded text-sm md:text-base ${isAfterMode ? 'bg-orange-500 text-white shadow-lg transform scale-105' : 'border-2 border-current'}`}>
                       {isAfterMode ? industries[activeIndustry].after.cta : industries[activeIndustry].before.cta}
                    </button>
                 </div>
 
                 <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur text-white px-1 py-1 rounded-full flex gap-1 cursor-pointer border border-white/20 shadow-xl" onClick={() => setIsAfterMode(!isAfterMode)}>
-                   <div className={`px-4 py-2 rounded-full transition-all text-sm font-bold ${!isAfterMode ? 'bg-slate-700' : 'hover:bg-white/10'}`}>Vorher</div>
-                   <div className={`px-4 py-2 rounded-full transition-all text-sm font-bold ${isAfterMode ? 'bg-orange-500' : 'hover:bg-white/10'}`}>Nachher</div>
+                   <div className={`px-4 py-2 rounded-full transition-all text-xs md:text-sm font-bold ${!isAfterMode ? 'bg-slate-700' : 'hover:bg-white/10'}`}>Vorher</div>
+                   <div className={`px-4 py-2 rounded-full transition-all text-xs md:text-sm font-bold ${isAfterMode ? 'bg-orange-500' : 'hover:bg-white/10'}`}>Nachher</div>
                 </div>
              </div>
           </div>
-          <div className="flex justify-center gap-4 mt-8">
+          <div className="flex justify-center gap-3 mt-6 flex-wrap">
              {industries.map((ind) => (
-                <button key={ind.id} onClick={() => { setActiveIndustry(ind.id); setIsAfterMode(false); }} className={`px-4 py-2 rounded-full text-sm font-bold border transition ${activeIndustry === ind.id ? 'bg-orange-500 text-white border-orange-500' : 'bg-white text-slate-500 border-slate-300'}`}>
+                <button key={ind.id} onClick={() => { setActiveIndustry(ind.id); setIsAfterMode(false); }} className={`px-4 py-2 rounded-full text-xs md:text-sm font-bold border transition ${activeIndustry === ind.id ? 'bg-orange-500 text-white border-orange-500' : 'bg-white text-slate-500 border-slate-300'}`}>
                    {ind.name}
                 </button>
              ))}
@@ -193,27 +195,27 @@ const CopywritingLandingProject = ({ onBack }) => {
         </section>
 
         {/* SERVICES */}
-        <section className="bg-slate-50 py-32 px-6">
+        <section className="bg-slate-50 py-20 md:py-32 px-6">
            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-16">
+              <div className="text-center mb-12 md:mb-16">
                  <h2 className="text-orange-500 font-bold tracking-widest uppercase mb-2">Expertise</h2>
-                 <h3 className="text-4xl font-extrabold">Was ich liefere</h3>
+                 <h3 className="text-3xl md:text-4xl font-extrabold">Was ich liefere</h3>
               </div>
               <div className="grid md:grid-cols-2 gap-8">
-                 <div className="p-10 bg-white border border-slate-200 rounded-3xl shadow-sm hover:shadow-xl transition-all">
-                    <div className="w-14 h-14 bg-orange-100 text-orange-500 rounded-2xl flex items-center justify-center mb-6"><Search size={32} /></div>
-                    <h3 className="text-2xl font-bold mb-4">SEO Audit</h3>
-                    <p className="text-slate-500 leading-relaxed mb-6">Analyse Ihrer Struktur und Keywords. Ich sorge dafür, dass Sie von genau den Kunden gefunden werden, die Sie suchen.</p>
-                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-100 text-sm">
+                 <div className="p-8 md:p-10 bg-white border border-slate-200 rounded-3xl shadow-sm hover:shadow-xl transition-all">
+                    <div className="w-12 h-12 md:w-14 md:h-14 bg-orange-100 text-orange-500 rounded-2xl flex items-center justify-center mb-6"><Search size={28} /></div>
+                    <h3 className="text-xl md:text-2xl font-bold mb-4">SEO Audit</h3>
+                    <p className="text-slate-500 leading-relaxed mb-6 text-sm md:text-base">Analyse Ihrer Struktur und Keywords. Ich sorge dafür, dass Sie von genau den Kunden gefunden werden, die Sie suchen.</p>
+                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-100 text-xs md:text-sm">
                        <div className="flex gap-2 text-red-400 mb-2"><X size={16}/> Titel: "Willkommen"</div>
-                       <div className="flex gap-2 text-green-600 font-bold"><CheckCircle size={16}/> Titel: "Anwalt für Arbeitsrecht München"</div>
+                       <div className="flex gap-2 text-green-600 font-bold"><CheckCircle size={16}/> Titel: "Anwalt für Arbeitsrecht"</div>
                     </div>
                  </div>
-                 <div className="p-10 bg-white border border-slate-200 rounded-3xl shadow-sm hover:shadow-xl transition-all">
-                    <div className="w-14 h-14 bg-blue-100 text-blue-500 rounded-2xl flex items-center justify-center mb-6"><PenTool size={32} /></div>
-                    <h3 className="text-2xl font-bold mb-4">Sales Copy</h3>
-                    <p className="text-slate-500 leading-relaxed mb-6">Verkaufstexte, die den Wert Ihres Angebots auf den Punkt bringen, statt mit leeren Floskeln zu langweilen.</p>
-                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-100 text-sm">
+                 <div className="p-8 md:p-10 bg-white border border-slate-200 rounded-3xl shadow-sm hover:shadow-xl transition-all">
+                    <div className="w-12 h-12 md:w-14 md:h-14 bg-blue-100 text-blue-500 rounded-2xl flex items-center justify-center mb-6"><PenTool size={28} /></div>
+                    <h3 className="text-xl md:text-2xl font-bold mb-4">Sales Copy</h3>
+                    <p className="text-slate-500 leading-relaxed mb-6 text-sm md:text-base">Verkaufstexte, die den Wert Ihres Angebots auf den Punkt bringen, statt mit leeren Floskeln zu langweilen.</p>
+                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-100 text-xs md:text-sm">
                        <div className="flex gap-2 text-red-400 mb-2"><X size={16}/> "Wir sind kompetent."</div>
                        <div className="flex gap-2 text-green-600 font-bold"><CheckCircle size={16}/> "Stoppen Sie Systemausfälle sofort."</div>
                     </div>
@@ -223,11 +225,11 @@ const CopywritingLandingProject = ({ onBack }) => {
         </section>
 
         {/* PAKETE */}
-        <section id="pakete" className="py-32 px-6">
+        <section id="pakete" className="py-20 md:py-32 px-6">
            <div className="max-w-5xl mx-auto">
-              <h2 className="text-4xl font-extrabold text-center mb-20">Pakete</h2>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-12 md:mb-20">Pakete</h2>
               <div className="grid md:grid-cols-2 gap-10 items-start">
-                 <div className="p-10 bg-slate-50 rounded-3xl border border-slate-200">
+                 <div className="p-8 md:p-10 bg-slate-50 rounded-3xl border border-slate-200">
                     <h3 className="text-2xl font-bold mb-2">Der Check</h3>
                     <div className="text-4xl font-extrabold text-orange-500 mb-6">0€</div>
                     <ul className="space-y-4 mb-8 text-slate-600 font-medium">
@@ -237,8 +239,8 @@ const CopywritingLandingProject = ({ onBack }) => {
                     </ul>
                     <a href="#audit" className="block w-full py-4 text-center border-2 border-slate-900 rounded-full font-bold hover:bg-slate-900 hover:text-white transition">Jetzt anfragen</a>
                  </div>
-                 <div className="p-10 bg-slate-900 text-white rounded-3xl shadow-2xl relative transform md:-translate-y-4">
-                    <div className="absolute top-0 right-10 -translate-y-1/2 bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wide">Empfohlen</div>
+                 <div className="p-8 md:p-10 bg-slate-900 text-white rounded-3xl shadow-2xl relative transform md:-translate-y-4">
+                    <div className="absolute top-0 right-6 md:right-10 -translate-y-1/2 bg-orange-500 text-white px-3 py-1 rounded-full text-xs md:text-sm font-bold uppercase tracking-wide">Empfohlen</div>
                     <h3 className="text-2xl font-bold mb-2">Website Refresh</h3>
                     <div className="text-4xl font-extrabold text-orange-500 mb-6">ab 890€</div>
                     <ul className="space-y-4 mb-8 font-medium">
@@ -257,9 +259,9 @@ const CopywritingLandingProject = ({ onBack }) => {
         </section>
 
         {/* AUDIT FORM */}
-        <section id="audit" className="py-32 px-6 bg-slate-50">
-          <div className="max-w-xl mx-auto bg-white p-10 rounded-3xl shadow-xl border border-slate-100">
-             <h3 className="text-3xl font-bold mb-4 text-center">Interesse geweckt?</h3>
+        <section id="audit" className="py-20 md:py-32 px-6 bg-slate-50 mb-20 md:mb-0">
+          <div className="max-w-xl mx-auto bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-slate-100">
+             <h3 className="text-2xl md:text-3xl font-bold mb-4 text-center">Interesse geweckt?</h3>
              <p className="text-slate-500 mb-8 text-center">Lassen Sie uns Ihre Website analysieren.</p>
              {formStatus === 'success' ? (
                 <div className="p-8 bg-green-50 text-green-600 rounded-xl text-center font-bold flex flex-col items-center gap-4">
@@ -309,28 +311,28 @@ const CopywritingDocsView = ({ onBack, darkMode }) => {
   const textSub = darkMode ? "text-slate-400" : "text-slate-600";
 
   return (
-    <div className={`min-h-screen p-6 md:p-12 overflow-y-auto relative z-50 ${darkMode ? 'bg-black text-slate-200' : 'bg-slate-50 text-slate-800'}`}>
+    <div className={`min-h-screen p-4 md:p-12 overflow-y-auto relative z-50 ${darkMode ? 'bg-black text-slate-200' : 'bg-slate-50 text-slate-800'} pb-32 md:pb-12`}>
       <div className="max-w-4xl mx-auto">
-        <nav className="flex justify-between items-center mb-12">
-           <div className={`text-2xl font-bold cursor-pointer hover:opacity-80 flex items-center gap-2 ${textMain}`} onClick={onBack}>
+        <nav className="flex justify-between items-center mb-8 md:mb-12">
+           <div className={`text-xl md:text-2xl font-bold cursor-pointer hover:opacity-80 flex items-center gap-2 ${textMain}`} onClick={onBack}>
               <Brain size={24} className="text-purple-500" />
-              Copywriting<span className="text-purple-500">.Docs</span>
+              <span className="truncate">Copy<span className="hidden md:inline">writing</span>.Docs</span>
            </div>
-           <button onClick={onBack} className={`p-3 rounded-full shadow-xl border transition-all ${darkMode ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-white border-slate-200 hover:bg-slate-100'}`}><X size={24} /></button>
+           <button onClick={onBack} className={`p-2 md:p-3 rounded-full shadow-xl border transition-all ${darkMode ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-white border-slate-200 hover:bg-slate-100'}`}><X size={20} /></button>
         </nav>
 
-        <header className="mb-12 text-center">
-          <h1 className={`text-4xl md:text-6xl font-bold mb-4 ${textMain}`}>Copywriting Cheat Sheet</h1>
-          <p className="text-xl opacity-60">Die wichtigsten Techniken für Einsteiger – kurz & knapp.</p>
+        <header className="mb-8 md:mb-12 text-center">
+          <h1 className={`text-3xl md:text-6xl font-bold mb-4 ${textMain}`}>Copywriting Cheat Sheet</h1>
+          <p className="text-lg md:text-xl opacity-60">Die wichtigsten Techniken für Einsteiger – kurz & knapp.</p>
         </header>
 
-        <div className="space-y-8">
+        <div className="space-y-6 md:space-y-8">
           
           {/* 1. Feature vs Benefit */}
-          <section className={`p-8 rounded-2xl border ${cardClass}`}>
-            <h2 className="text-2xl font-bold mb-2 text-purple-500">1. Die Goldene Regel: Feature vs. Benefit</h2>
-            <p className={`mb-6 ${textSub}`}>Kunden kaufen keine Produkteigenschaften, sondern ein besseres Leben.</p>
-            <div className="grid md:grid-cols-2 gap-6">
+          <section className={`p-6 md:p-8 rounded-2xl border ${cardClass}`}>
+            <h2 className="text-xl md:text-2xl font-bold mb-2 text-purple-500">1. Die Goldene Regel: Feature vs. Benefit</h2>
+            <p className={`mb-6 text-sm md:text-base ${textSub}`}>Kunden kaufen keine Produkteigenschaften, sondern ein besseres Leben.</p>
+            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
               <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/20">
                 <strong className="text-red-500 block mb-2">❌ Feature (Merkmal)</strong>
                 "256 GB Speicherplatz."
@@ -340,62 +342,62 @@ const CopywritingDocsView = ({ onBack, darkMode }) => {
                 "Platz für 50.000 Fotos deiner Familie, damit du keine Erinnerung löschen musst."
               </div>
             </div>
-            <div className="mt-4 p-4 bg-purple-500/5 rounded-xl border border-purple-500/10 flex items-center gap-3">
-               <Lightbulb className="text-purple-500" />
-               <p className="text-sm"><strong>Der Trick:</strong> Frage nach jedem Merkmal: "Na und?" Die Antwort darauf ist der Benefit.</p>
+            <div className="mt-4 p-4 bg-purple-500/5 rounded-xl border border-purple-500/10 flex items-start md:items-center gap-3">
+               <Lightbulb className="text-purple-500 shrink-0 mt-1 md:mt-0" />
+               <p className="text-xs md:text-sm"><strong>Der Trick:</strong> Frage nach jedem Merkmal: "Na und?" Die Antwort darauf ist der Benefit.</p>
             </div>
           </section>
 
           {/* 2. Struktur Formeln (AIDA & PAS) */}
-          <section className={`p-8 rounded-2xl border ${cardClass}`}>
-            <h2 className="text-2xl font-bold mb-6 text-purple-500">2. Die wichtigsten Struktur-Formeln</h2>
+          <section className={`p-6 md:p-8 rounded-2xl border ${cardClass}`}>
+            <h2 className="text-xl md:text-2xl font-bold mb-6 text-purple-500">2. Die wichtigsten Struktur-Formeln</h2>
             
             <div className="mb-8">
-               <h3 className={`text-xl font-bold mb-4 ${textMain}`}>A. I. D. A. (Für fast alles)</h3>
+               <h3 className={`text-lg md:text-xl font-bold mb-4 ${textMain}`}>A. I. D. A. (Für fast alles)</h3>
                <ul className="space-y-4">
-                 <li className="flex gap-4"><span className="font-bold text-2xl w-8 text-purple-400">A</span><div><strong className={textMain}>Attention:</strong> Die Headline muss den Leser stoppen.</div></li>
-                 <li className="flex gap-4"><span className="font-bold text-2xl w-8 text-purple-400">I</span><div><strong className={textMain}>Interest:</strong> Mache ihn neugierig.</div></li>
-                 <li className="flex gap-4"><span className="font-bold text-2xl w-8 text-purple-400">D</span><div><strong className={textMain}>Desire:</strong> Zeige, wie gut sein Leben mit dem Produkt wäre.</div></li>
-                 <li className="flex gap-4"><span className="font-bold text-2xl w-8 text-purple-400">A</span><div><strong className={textMain}>Action:</strong> Sag ihm genau, was er klicken/tun soll.</div></li>
+                 <li className="flex gap-4"><span className="font-bold text-xl md:text-2xl w-8 text-purple-400 shrink-0">A</span><div><strong className={textMain}>Attention:</strong> Die Headline muss den Leser stoppen.</div></li>
+                 <li className="flex gap-4"><span className="font-bold text-xl md:text-2xl w-8 text-purple-400 shrink-0">I</span><div><strong className={textMain}>Interest:</strong> Mache ihn neugierig.</div></li>
+                 <li className="flex gap-4"><span className="font-bold text-xl md:text-2xl w-8 text-purple-400 shrink-0">D</span><div><strong className={textMain}>Desire:</strong> Zeige, wie gut sein Leben mit dem Produkt wäre.</div></li>
+                 <li className="flex gap-4"><span className="font-bold text-xl md:text-2xl w-8 text-purple-400 shrink-0">A</span><div><strong className={textMain}>Action:</strong> Sag ihm genau, was er klicken/tun soll.</div></li>
                </ul>
             </div>
 
             <div>
-               <h3 className={`text-xl font-bold mb-4 ${textMain}`}>P. A. S. (Für Problemlösungen)</h3>
+               <h3 className={`text-lg md:text-xl font-bold mb-4 ${textMain}`}>P. A. S. (Für Problemlösungen)</h3>
                <ul className="space-y-4">
-                 <li className="flex gap-4"><span className="font-bold text-2xl w-8 text-blue-400">P</span><div><strong className={textMain}>Problem:</strong> Benenne das Problem des Kunden klar.</div></li>
-                 <li className="flex gap-4"><span className="font-bold text-2xl w-8 text-blue-400">A</span><div><strong className={textMain}>Agitation (Aufwühlen):</strong> Mache das Problem schmerzhaft (emotional).</div></li>
-                 <li className="flex gap-4"><span className="font-bold text-2xl w-8 text-blue-400">S</span><div><strong className={textMain}>Solution:</strong> Dein Produkt ist die Erlösung.</div></li>
+                 <li className="flex gap-4"><span className="font-bold text-xl md:text-2xl w-8 text-blue-400 shrink-0">P</span><div><strong className={textMain}>Problem:</strong> Benenne das Problem des Kunden klar.</div></li>
+                 <li className="flex gap-4"><span className="font-bold text-xl md:text-2xl w-8 text-blue-400 shrink-0">A</span><div><strong className={textMain}>Agitation (Aufwühlen):</strong> Mache das Problem schmerzhaft (emotional).</div></li>
+                 <li className="flex gap-4"><span className="font-bold text-xl md:text-2xl w-8 text-blue-400 shrink-0">S</span><div><strong className={textMain}>Solution:</strong> Dein Produkt ist die Erlösung.</div></li>
                </ul>
             </div>
           </section>
 
           {/* 3. Die 4 U's */}
-          <section className={`p-8 rounded-2xl border ${cardClass}`}>
-            <h2 className="text-2xl font-bold mb-6 text-purple-500">3. Die 4 U's für starke Headlines</h2>
+          <section className={`p-6 md:p-8 rounded-2xl border ${cardClass}`}>
+            <h2 className="text-xl md:text-2xl font-bold mb-6 text-purple-500">3. Die 4 U's für starke Headlines</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                <div className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-slate-50 border-slate-100'}`}>
-                  <div className="text-xl font-bold mb-1 text-purple-400">Urgent</div>
+                  <div className="text-lg md:text-xl font-bold mb-1 text-purple-400">Urgent</div>
                   <div className="text-xs opacity-70">Warum jetzt lesen?</div>
                </div>
                <div className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-slate-50 border-slate-100'}`}>
-                  <div className="text-xl font-bold mb-1 text-purple-400">Unique</div>
+                  <div className="text-lg md:text-xl font-bold mb-1 text-purple-400">Unique</div>
                   <div className="text-xs opacity-70">Was ist neu/anders?</div>
                </div>
                <div className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-slate-50 border-slate-100'}`}>
-                  <div className="text-xl font-bold mb-1 text-purple-400">Ultra-specific</div>
+                  <div className="text-lg md:text-xl font-bold mb-1 text-purple-400">Ultra-specific</div>
                   <div className="text-xs opacity-70">"5.420 €" statt "Viel Geld"</div>
                </div>
                <div className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-slate-50 border-slate-100'}`}>
-                  <div className="text-xl font-bold mb-1 text-purple-400">Useful</div>
+                  <div className="text-lg md:text-xl font-bold mb-1 text-purple-400">Useful</div>
                   <div className="text-xs opacity-70">Welcher Mehrwert sofort?</div>
                </div>
             </div>
           </section>
 
           {/* 4. Psychologische Trigger */}
-          <section className={`p-8 rounded-2xl border ${cardClass}`}>
-            <h2 className="text-2xl font-bold mb-6 text-purple-500">4. Psychologische Trigger</h2>
+          <section className={`p-6 md:p-8 rounded-2xl border ${cardClass}`}>
+            <h2 className="text-xl md:text-2xl font-bold mb-6 text-purple-500">4. Psychologische Trigger</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                <div className="p-4 bg-slate-500/5 rounded-lg border border-slate-500/10"><strong>Social Proof</strong><br/><span className="text-sm opacity-70">"Bereits 5.000 Kunden"</span></div>
                <div className="p-4 bg-slate-500/5 rounded-lg border border-slate-500/10"><strong>Scarcity</strong><br/><span className="text-sm opacity-70">"Nur noch 3 Stück"</span></div>
@@ -404,13 +406,13 @@ const CopywritingDocsView = ({ onBack, darkMode }) => {
           </section>
 
           {/* 5. Checkliste */}
-          <section className={`p-8 rounded-2xl border ${cardClass}`}>
-            <h2 className="text-2xl font-bold mb-6 text-purple-500">5. Checkliste für deinen Text</h2>
+          <section className={`p-6 md:p-8 rounded-2xl border ${cardClass}`}>
+            <h2 className="text-xl md:text-2xl font-bold mb-6 text-purple-500">5. Checkliste für deinen Text</h2>
             <div className="space-y-3">
-               <div className="flex items-center gap-3"><CheckSquare className="text-green-500"/> <span><strong>Du-Perspektive:</strong> Sprichst du den Leser direkt an?</span></div>
-               <div className="flex items-center gap-3"><CheckSquare className="text-green-500"/> <span><strong>Aktive Sprache:</strong> Starke Verben nutzen.</span></div>
-               <div className="flex items-center gap-3"><CheckSquare className="text-green-500"/> <span><strong>Lesbarkeit:</strong> Kurze Sätze. Viele Absätze.</span></div>
-               <div className="flex items-center gap-3"><CheckSquare className="text-green-500"/> <span><strong>Ein Ziel:</strong> Hat der Text genau EINEN Call to Action?</span></div>
+               <div className="flex items-center gap-3"><CheckSquare className="text-green-500 shrink-0"/> <span><strong>Du-Perspektive:</strong> Sprichst du den Leser direkt an?</span></div>
+               <div className="flex items-center gap-3"><CheckSquare className="text-green-500 shrink-0"/> <span><strong>Aktive Sprache:</strong> Starke Verben nutzen.</span></div>
+               <div className="flex items-center gap-3"><CheckSquare className="text-green-500 shrink-0"/> <span><strong>Lesbarkeit:</strong> Kurze Sätze. Viele Absätze.</span></div>
+               <div className="flex items-center gap-3"><CheckSquare className="text-green-500 shrink-0"/> <span><strong>Ein Ziel:</strong> Hat der Text genau EINEN Call to Action?</span></div>
             </div>
           </section>
 
@@ -456,20 +458,20 @@ LIMIT 5;`,
   ];
 
   return (
-    <div className={`min-h-screen p-6 md:p-12 overflow-y-auto relative z-50 ${darkMode ? 'bg-black text-slate-200' : 'bg-slate-50 text-slate-800'}`}>
+    <div className={`min-h-screen p-4 md:p-12 overflow-y-auto relative z-50 ${darkMode ? 'bg-black text-slate-200' : 'bg-slate-50 text-slate-800'} pb-32 md:pb-12`}>
       <div className="max-w-5xl mx-auto">
-        <nav className="flex justify-between items-center mb-12">
+        <nav className="flex justify-between items-center mb-8 md:mb-12">
             <div className="flex items-center gap-4 cursor-pointer hover:opacity-80" onClick={onBack}>
-               <div className="p-3 bg-emerald-500/10 text-emerald-500 rounded-xl"><Database size={32}/></div>
+               <div className="p-2 md:p-3 bg-emerald-500/10 text-emerald-500 rounded-xl"><Database size={24} className="md:w-8 md:h-8"/></div>
                <div>
-                  <h1 className="text-2xl font-bold">E-Commerce DB</h1>
+                  <h1 className="text-xl md:text-2xl font-bold">E-Commerce DB</h1>
                   <p className="opacity-60 text-xs">Architecture & SQL</p>
                </div>
             </div>
-            <button onClick={onBack} className={`p-3 rounded-full shadow-xl border transition-all ${darkMode ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-white border-slate-200 hover:bg-slate-100'}`}><X size={24} /></button>
+            <button onClick={onBack} className={`p-2 md:p-3 rounded-full shadow-xl border transition-all ${darkMode ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-white border-slate-200 hover:bg-slate-100'}`}><X size={20} /></button>
         </nav>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
            <div className={`p-6 rounded-xl border ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <h3 className="font-bold mb-4 flex items-center gap-2"><Server size={18}/> Tabellen Struktur</h3>
               <div className="space-y-3 font-mono text-sm">
@@ -483,16 +485,16 @@ LIMIT 5;`,
 
            <div className="lg:col-span-2 space-y-6">
               <div className={`rounded-xl border overflow-hidden ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-                 <div className="flex border-b border-slate-700/50">
+                 <div className="flex border-b border-slate-700/50 overflow-x-auto">
                     {queries.map((q,i) => (
-                       <button key={i} onClick={() => setActiveQuery(i)} className={`px-4 py-3 text-sm ${activeQuery === i ? 'bg-emerald-500/10 text-emerald-500 border-b-2 border-emerald-500' : 'opacity-60'}`}>Query {i+1}</button>
+                       <button key={i} onClick={() => setActiveQuery(i)} className={`px-4 py-3 text-sm whitespace-nowrap ${activeQuery === i ? 'bg-emerald-500/10 text-emerald-500 border-b-2 border-emerald-500' : 'opacity-60'}`}>Query {i+1}</button>
                     ))}
                  </div>
-                 <div className="p-6">
-                    <div className="bg-black p-4 rounded-lg font-mono text-emerald-400 text-sm mb-4 border border-slate-700 overflow-x-auto"><pre>{queries[activeQuery].sql}</pre></div>
+                 <div className="p-4 md:p-6">
+                    <div className="bg-black p-4 rounded-lg font-mono text-emerald-400 text-xs md:text-sm mb-4 border border-slate-700 overflow-x-auto"><pre>{queries[activeQuery].sql}</pre></div>
                     <div className="text-xs uppercase font-bold opacity-50 mb-2">Result:</div>
-                    <div className="bg-slate-800/50 rounded border border-slate-700 overflow-hidden">
-                       <table className="w-full text-sm text-left">
+                    <div className="bg-slate-800/50 rounded border border-slate-700 overflow-hidden overflow-x-auto">
+                       <table className="w-full text-sm text-left whitespace-nowrap">
                           <thead className="bg-slate-700 text-slate-200">
                              <tr>{Object.keys(queries[activeQuery].result[0]).map(k => <th key={k} className="px-4 py-2 capitalize">{k}</th>)}</tr>
                           </thead>
@@ -516,16 +518,16 @@ LIMIT 5;`,
 
 
 // ==========================================
-// TEIL 4: NETWORK & API BASICS - NEU
+// TEIL 4: NETWORK & API BASICS - MOBILE OPTIMIZED
 // ==========================================
 
 const NetworkProjectView = ({ onBack, darkMode }) => {
-  const [step, setStep] = useState(0); // 0: Idle, 1: DNS, 2: Connect, 3: API, 4: Data, 5: Done
+  const [step, setStep] = useState(0); 
   const [logs, setLogs] = useState([]);
   const cardClass = darkMode ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200";
 
   const runSimulation = () => {
-    if (step > 0 && step < 5) return; // Prevent double click
+    if (step > 0 && step < 5) return; 
     setStep(1);
     setLogs(["Initialisiere Anfrage an 'api.shop.de'..."]);
     
@@ -560,32 +562,32 @@ const NetworkProjectView = ({ onBack, darkMode }) => {
   };
 
   return (
-    <div className={`min-h-screen p-6 md:p-12 overflow-y-auto relative z-50 ${darkMode ? 'bg-black text-slate-200' : 'bg-slate-50 text-slate-800'}`}>
+    <div className={`min-h-screen p-4 md:p-12 overflow-y-auto relative z-50 ${darkMode ? 'bg-black text-slate-200' : 'bg-slate-50 text-slate-800'} pb-32 md:pb-12`}>
       <div className="max-w-6xl mx-auto">
         
         {/* Header */}
-        <nav className="flex justify-between items-center mb-12">
+        <nav className="flex justify-between items-center mb-8 md:mb-12">
             <div className="flex items-center gap-4 cursor-pointer hover:opacity-80" onClick={onBack}>
-               <div className="p-3 bg-cyan-500/10 text-cyan-500 rounded-xl"><Network size={32}/></div>
+               <div className="p-2 md:p-3 bg-cyan-500/10 text-cyan-500 rounded-xl"><Network size={24} className="md:w-8 md:h-8"/></div>
                <div>
-                  <h1 className="text-2xl font-bold">Web & Network Basics</h1>
-                  <p className="opacity-60 text-xs">IP, Hosting, DNS & API Simulation</p>
+                  <h1 className="text-xl md:text-2xl font-bold">Web & Network</h1>
+                  <p className="opacity-60 text-xs">IP, Hosting, DNS & API</p>
                </div>
             </div>
-            <button onClick={onBack} className={`p-3 rounded-full shadow-xl border transition-all ${darkMode ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-white border-slate-200 hover:bg-slate-100'}`}><X size={24} /></button>
+            <button onClick={onBack} className={`p-2 md:p-3 rounded-full shadow-xl border transition-all ${darkMode ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-white border-slate-200 hover:bg-slate-100'}`}><X size={20} /></button>
         </nav>
 
         {/* 1. Theorie Karten - Einfach Erklärt */}
-        <section className="mb-16">
-          <h2 className="text-xl font-bold mb-6 flex items-center gap-2"><BookOpen className="text-cyan-500"/> Die Grundlagen (Einfach erklärt)</h2>
-          <div className="grid md:grid-cols-4 gap-6">
+        <section className="mb-12 md:mb-16">
+          <h2 className="text-lg md:text-xl font-bold mb-6 flex items-center gap-2"><BookOpen className="text-cyan-500"/> Die Grundlagen</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
             
             {/* IP Karte */}
             <div className={`p-6 rounded-xl border ${cardClass} hover:border-cyan-500/50 transition-colors`}>
                <div className="w-10 h-10 bg-blue-500/10 text-blue-500 rounded-lg flex items-center justify-center mb-4"><MapPin size={20}/></div>
                <h3 className="font-bold mb-2">IP-Adresse</h3>
                <p className="text-xs opacity-70 leading-relaxed">
-                 Die <strong>Hausnummer</strong> im Internet. Jedes Gerät (Handy, Server) braucht eine eindeutige Nummer (z.B. 192.168.1.1), um gefunden zu werden.
+                 Die <strong>Hausnummer</strong> im Internet. Jedes Gerät braucht eine Nummer (z.B. 192.168.1.1), um gefunden zu werden.
                </p>
             </div>
 
@@ -594,7 +596,7 @@ const NetworkProjectView = ({ onBack, darkMode }) => {
                <div className="w-10 h-10 bg-purple-500/10 text-purple-500 rounded-lg flex items-center justify-center mb-4"><Globe size={20}/></div>
                <h3 className="font-bold mb-2">Domain & DNS</h3>
                <p className="text-xs opacity-70 leading-relaxed">
-                 Domains (google.de) sind Namen für uns Menschen. Das <strong>DNS (Telefonbuch)</strong> übersetzt den Namen in die richtige IP-Nummer für den Computer.
+                 Domains (google.de) sind Namen. Das <strong>DNS (Telefonbuch)</strong> übersetzt den Namen in die IP-Nummer.
                </p>
             </div>
 
@@ -603,7 +605,7 @@ const NetworkProjectView = ({ onBack, darkMode }) => {
                <div className="w-10 h-10 bg-orange-500/10 text-orange-500 rounded-lg flex items-center justify-center mb-4"><Server size={20}/></div>
                <h3 className="font-bold mb-2">Hosting</h3>
                <p className="text-xs opacity-70 leading-relaxed">
-                 Das <strong>"Grundstück"</strong>. Ein Hoster vermietet Platz auf einem Server (Computer, der immer an ist), damit deine Webseite rund um die Uhr erreichbar ist.
+                 Das <strong>"Grundstück"</strong>. Ein Hoster vermietet Platz auf einem Server, damit deine Webseite immer erreichbar ist.
                </p>
             </div>
 
@@ -612,7 +614,7 @@ const NetworkProjectView = ({ onBack, darkMode }) => {
                <div className="w-10 h-10 bg-green-500/10 text-green-500 rounded-lg flex items-center justify-center mb-4"><Zap size={20}/></div>
                <h3 className="font-bold mb-2">API</h3>
                <p className="text-xs opacity-70 leading-relaxed">
-                 Der <strong>Kellner</strong>. Du (der Gast) bestellst Daten. Die API nimmt die Bestellung an, holt sie aus der Küche (Datenbank) und bringt sie dir zurück.
+                 Der <strong>Kellner</strong>. Du bestellst Daten. Die API holt sie aus der Küche (Datenbank) und bringt sie dir.
                </p>
             </div>
 
@@ -621,60 +623,62 @@ const NetworkProjectView = ({ onBack, darkMode }) => {
 
         <div className="grid lg:grid-cols-2 gap-8">
           
-          {/* 2. Simulation */}
-          <section className={`p-8 rounded-2xl border flex flex-col ${cardClass}`}>
+          {/* 2. Simulation - MOBILE FRIENDLY */}
+          <section className={`p-6 md:p-8 rounded-2xl border flex flex-col ${cardClass}`}>
              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold flex items-center gap-2"><Monitor className="text-cyan-500"/> Request Simulator</h2>
-                <div className="text-xs px-2 py-1 rounded bg-slate-800 border border-slate-700 font-mono">Status: {step === 0 ? 'IDLE' : step === 5 ? 'COMPLETE' : 'RUNNING...'}</div>
+                <h2 className="text-lg md:text-xl font-bold flex items-center gap-2"><Monitor className="text-cyan-500"/> Simulator</h2>
+                <div className="text-[10px] md:text-xs px-2 py-1 rounded bg-slate-800 border border-slate-700 font-mono">Status: {step === 0 ? 'IDLE' : step === 5 ? 'COMPLETE' : 'RUNNING...'}</div>
              </div>
 
              {/* Visual Flow Animation Area */}
-             <div className="flex-1 bg-black/40 rounded-xl border border-slate-700/50 p-6 mb-6 relative overflow-hidden flex flex-col items-center justify-center min-h-[300px]">
+             <div className="flex-1 bg-black/40 rounded-xl border border-slate-700/50 p-4 md:p-6 mb-6 relative overflow-hidden flex flex-col md:block items-center justify-center min-h-[400px] md:min-h-[300px]">
                 
-                {/* Connection Lines (SVG) */}
-                <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
-                  {/* Line Browser to DNS */}
+                {/* Connection Lines (Desktop Only) */}
+                <svg className="hidden md:block absolute inset-0 w-full h-full pointer-events-none z-0">
                    <path d="M 100 150 L 250 80" stroke={step >= 1 ? "#22d3ee" : "#334155"} strokeWidth="2" fill="none" className={step === 1 ? "path-animation" : ""} />
-                   {/* Line DNS to Server */}
                    <path d="M 250 80 L 400 150" stroke={step >= 2 ? "#22d3ee" : "#334155"} strokeWidth="2" fill="none" className={step === 2 ? "path-animation" : ""} />
-                   {/* Line Server to API */}
                    <path d="M 100 150 L 400 150" stroke={step >= 3 ? "#10b981" : "#334155"} strokeWidth="2" fill="none" className={step >= 3 ? "path-animation" : ""} opacity={step >= 3 ? 1 : 0.2} />
                 </svg>
 
+                {/* Connection Lines (Mobile Only - Vertical) */}
+                 <div className="md:hidden absolute inset-0 flex flex-col items-center justify-center z-0">
+                    <div className={`w-0.5 h-full ${step >= 1 ? 'bg-cyan-500' : 'bg-slate-700'}`}></div>
+                 </div>
+
                 {/* Elements */}
-                <div className="relative z-10 w-full h-full">
+                <div className="relative z-10 w-full h-full flex flex-col md:block justify-between md:justify-normal items-center md:items-stretch py-4 md:py-0">
+                    
                     {/* Browser / User */}
-                    <div className={`absolute top-1/2 left-10 -translate-y-1/2 flex flex-col items-center gap-2 transition-all duration-500 ${step >= 0 ? 'opacity-100' : 'opacity-30'}`}>
-                        <div className={`w-16 h-16 rounded-full flex items-center justify-center border-2 ${step >= 0 ? 'bg-slate-800 border-white text-white shadow-[0_0_15px_rgba(255,255,255,0.3)]' : 'bg-slate-900 border-slate-700 text-slate-600'}`}>
-                           <Monitor size={28}/>
+                    <div className={`md:absolute md:top-1/2 md:left-10 md:-translate-y-1/2 flex flex-col items-center gap-2 transition-all duration-500 ${step >= 0 ? 'opacity-100' : 'opacity-30'}`}>
+                        <div className={`w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center border-2 ${step >= 0 ? 'bg-slate-800 border-white text-white shadow-[0_0_15px_rgba(255,255,255,0.3)]' : 'bg-slate-900 border-slate-700 text-slate-600'}`}>
+                           <Monitor size={24} className="md:w-7 md:h-7"/>
                         </div>
                         <span className="text-xs font-bold bg-black/50 px-2 py-1 rounded">Browser</span>
                     </div>
 
+                    {/* Arrow for Mobile */}
+                    <div className="md:hidden"><ArrowDown size={20} className={step >= 1 ? "text-cyan-500 animate-bounce" : "text-slate-700"}/></div>
+
                     {/* DNS Server */}
-                    <div className={`absolute top-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-all duration-500 ${step >= 1 ? 'scale-110 opacity-100' : 'opacity-30 scale-100'}`}>
-                        <div className={`w-14 h-14 rounded-full flex items-center justify-center border-2 ${step >= 1 ? 'bg-purple-900/80 border-purple-500 text-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.5)]' : 'bg-slate-900 border-slate-700 text-slate-600'}`}>
-                           <Globe size={24}/>
+                    <div className={`md:absolute md:top-10 md:left-1/2 md:-translate-x-1/2 flex flex-col items-center gap-2 transition-all duration-500 ${step >= 1 ? 'scale-110 opacity-100' : 'opacity-30 scale-100'}`}>
+                        <div className={`w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center border-2 ${step >= 1 ? 'bg-purple-900/80 border-purple-500 text-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.5)]' : 'bg-slate-900 border-slate-700 text-slate-600'}`}>
+                           <Globe size={20} className="md:w-6 md:h-6"/>
                         </div>
                         <span className="text-xs font-bold bg-black/50 px-2 py-1 rounded">DNS</span>
-                        {step === 1 && <span className="text-[10px] text-purple-400 animate-pulse absolute -right-24 top-2 w-20">Suche IP...</span>}
+                        {step === 1 && <span className="text-[10px] text-purple-400 animate-pulse absolute -right-24 top-2 w-20 md:block hidden">Suche IP...</span>}
                     </div>
 
+                    {/* Arrow for Mobile */}
+                    <div className="md:hidden"><ArrowDown size={20} className={step >= 2 ? "text-cyan-500 animate-bounce" : "text-slate-700"}/></div>
+
                     {/* Web Server */}
-                    <div className={`absolute top-1/2 right-10 -translate-y-1/2 flex flex-col items-center gap-2 transition-all duration-500 ${step >= 2 ? 'scale-110 opacity-100' : 'opacity-30 scale-100'}`}>
-                        <div className={`w-16 h-16 rounded-full flex items-center justify-center border-2 ${step >= 2 ? 'bg-orange-900/80 border-orange-500 text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.5)]' : 'bg-slate-900 border-slate-700 text-slate-600'}`}>
-                           <Server size={28}/>
+                    <div className={`md:absolute md:top-1/2 md:right-10 md:-translate-y-1/2 flex flex-col items-center gap-2 transition-all duration-500 ${step >= 2 ? 'scale-110 opacity-100' : 'opacity-30 scale-100'}`}>
+                        <div className={`w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center border-2 ${step >= 2 ? 'bg-orange-900/80 border-orange-500 text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.5)]' : 'bg-slate-900 border-slate-700 text-slate-600'}`}>
+                           <Server size={24} className="md:w-7 md:h-7"/>
                         </div>
                         <span className="text-xs font-bold bg-black/50 px-2 py-1 rounded">Server (Hosting)</span>
-                        {step >= 2 && <span className="text-[10px] text-orange-400 absolute top-[-20px]">192.168.178.45</span>}
                     </div>
                     
-                    {/* Data Packet */}
-                    {step === 4 && (
-                        <div className="absolute top-[60%] left-1/2 -translate-x-1/2 flex items-center gap-2 text-green-400 animate-pulse bg-black/80 px-3 py-1 rounded-full border border-green-500/50">
-                           <FileText size={14} /> JSON Daten
-                        </div>
-                    )}
                 </div>
              </div>
 
@@ -686,12 +690,12 @@ const NetworkProjectView = ({ onBack, darkMode }) => {
                     disabled={step > 0 && step < 5}
                     className={`flex-1 py-3 rounded-lg font-bold flex items-center justify-center gap-2 transition-all ${step > 0 && step < 5 ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'bg-cyan-600 hover:bg-cyan-500 text-white shadow-lg shadow-cyan-900/20'}`}
                   >
-                    {step === 5 ? <><CheckCircle size={18}/> Neustarten</> : <><Zap size={18}/> Simulation Starten</>}
+                    {step === 5 ? <><CheckCircle size={18}/> Neustarten</> : <><Zap size={18}/> Starten</>}
                   </button>
                   {step === 5 && <button onClick={resetSimulation} className="px-4 rounded-lg bg-slate-800 hover:bg-slate-700 text-white"><Trash2 size={18}/></button>}
                </div>
                
-               <div className="h-40 bg-black rounded-lg border border-slate-800 p-4 font-mono text-xs overflow-y-auto space-y-2">
+               <div className="h-32 md:h-40 bg-black rounded-lg border border-slate-800 p-4 font-mono text-[10px] md:text-xs overflow-y-auto space-y-2">
                   <div className="text-slate-500 opacity-50">// System Logs...</div>
                   {logs.map((log, i) => (
                     <div key={i} className="flex gap-2">
@@ -711,8 +715,8 @@ const NetworkProjectView = ({ onBack, darkMode }) => {
           </section>
 
           {/* 3. Logik Diagramm */}
-          <section className={`p-8 rounded-2xl border ${cardClass}`}>
-             <h2 className="text-xl font-bold mb-6 flex items-center gap-2"><Layers className="text-cyan-500"/> Logik-Diagramm</h2>
+          <section className={`p-6 md:p-8 rounded-2xl border ${cardClass}`}>
+             <h2 className="text-lg md:text-xl font-bold mb-6 flex items-center gap-2"><Layers className="text-cyan-500"/> Logik-Diagramm</h2>
              <p className="text-sm opacity-70 mb-8">
                Was passiert im Hintergrund, wenn du auf einen Link klickst?
              </p>
@@ -724,16 +728,16 @@ const NetworkProjectView = ({ onBack, darkMode }) => {
                {/* Step 1 */}
                <div className="relative pl-16">
                   <div className="absolute left-0 top-0 w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold z-10 shadow-lg border-4 border-slate-900">1</div>
-                  <h4 className="font-bold text-lg mb-1">User Anfrage</h4>
-                  <p className="text-sm opacity-70 mb-2">Du tippst <code>google.de</code> ein.</p>
+                  <h4 className="font-bold text-base md:text-lg mb-1">User Anfrage</h4>
+                  <p className="text-xs md:text-sm opacity-70 mb-2">Du tippst <code>google.de</code> ein.</p>
                   <div className="p-3 bg-slate-500/10 rounded border border-slate-500/20 text-xs font-mono">GET https://google.de</div>
                </div>
 
                {/* Step 2 */}
                <div className="relative pl-16">
                   <div className="absolute left-0 top-0 w-12 h-12 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold z-10 shadow-lg border-4 border-slate-900">2</div>
-                  <h4 className="font-bold text-lg mb-1">DNS Auflösung</h4>
-                  <p className="text-sm opacity-70 mb-2">Browser fragt: "Wer ist google.de?"</p>
+                  <h4 className="font-bold text-base md:text-lg mb-1">DNS Auflösung</h4>
+                  <p className="text-xs md:text-sm opacity-70 mb-2">Browser fragt: "Wer ist google.de?"</p>
                   <div className="flex items-center gap-2 text-xs font-mono text-purple-400">
                     <ArrowRight size={14}/> DNS Server antwortet: 142.250.181.227
                   </div>
@@ -742,8 +746,8 @@ const NetworkProjectView = ({ onBack, darkMode }) => {
                {/* Step 3 */}
                <div className="relative pl-16">
                   <div className="absolute left-0 top-0 w-12 h-12 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold z-10 shadow-lg border-4 border-slate-900">3</div>
-                  <h4 className="font-bold text-lg mb-1">Server Verarbeitung</h4>
-                  <p className="text-sm opacity-70 mb-2">Server (Hosting) empfängt Anfrage.</p>
+                  <h4 className="font-bold text-base md:text-lg mb-1">Server Verarbeitung</h4>
+                  <p className="text-xs md:text-sm opacity-70 mb-2">Server (Hosting) empfängt Anfrage.</p>
                   <div className="p-3 bg-orange-500/10 rounded border border-orange-500/20 text-xs text-orange-400">
                     Backend Logik prüft Datenbank...
                   </div>
@@ -752,8 +756,8 @@ const NetworkProjectView = ({ onBack, darkMode }) => {
                {/* Step 4 */}
                <div className="relative pl-16">
                   <div className="absolute left-0 top-0 w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center font-bold z-10 shadow-lg border-4 border-slate-900">4</div>
-                  <h4 className="font-bold text-lg mb-1">Response (Antwort)</h4>
-                  <p className="text-sm opacity-70 mb-2">Der Server schickt die Webseite (HTML/JSON) zurück.</p>
+                  <h4 className="font-bold text-base md:text-lg mb-1">Response (Antwort)</h4>
+                  <p className="text-xs md:text-sm opacity-70 mb-2">Der Server schickt die Webseite (HTML/JSON) zurück.</p>
                   <div className="flex items-center gap-2 text-xs font-mono text-green-400">
                     <CheckCircle size={14}/> 200 OK - Content Loaded
                   </div>
@@ -790,8 +794,8 @@ const WaveBackground = ({ darkMode }) => {
       <div className={`hidden md:block absolute top-1/2 -right-20 w-[600px] h-[600px] rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000 opacity-30 ${darkMode ? 'bg-blue-900' : 'bg-blue-300'}`}></div>
       <div className={`hidden md:block absolute -bottom-40 left-1/3 w-[500px] h-[500px] rounded-full mix-blend-screen filter blur-[90px] animate-blob animation-delay-4000 opacity-40 ${darkMode ? 'bg-purple-900' : 'bg-purple-300'}`}></div>
       
-      {/* Globale Pulsation */}
-      <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-black/20 animate-pulse-slow pointer-events-none"></div>
+      {/* Globale Pulsation - NUR AUF PC SICHTBAR */}
+      <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-black/20 animate-pulse-slow pointer-events-none"></div>
     </div>
   );
 };
@@ -935,8 +939,8 @@ export default function App() {
         </div>
       </nav>
 
-      {/* Mobile Navigation (Bottom) - NEU */}
-      <div className={`md:hidden fixed bottom-6 left-6 right-6 z-50 p-4 rounded-2xl flex justify-around items-center border shadow-2xl transition-all ${darkMode ? 'bg-black/90 border-slate-700 text-slate-400' : 'bg-white/90 border-slate-200 text-slate-500'} backdrop-blur-md`}>
+      {/* Mobile Navigation (Bottom) - NEU - Z-Index 100 damit es sichtbar ist */}
+      <div className={`md:hidden fixed bottom-8 left-6 right-6 z-[100] p-4 rounded-2xl flex justify-around items-center border shadow-2xl transition-all ${darkMode ? 'bg-black/90 border-slate-700 text-slate-400' : 'bg-white/90 border-slate-200 text-slate-500'} backdrop-blur-md`}>
           {['Portfolio', 'Profil', 'Kontakt'].map((item) => (
               <button 
                 key={item}
@@ -963,7 +967,7 @@ export default function App() {
       
       {/* VERCEL ANALYTICS */}
       {/* SCHRITT FÜR ANALYTICS 2: Entferne die Kommentierung in der nächsten Zeile, wenn du es lokal nutzt: */}
-      {<Analytics /> }
+      {<Analytics />}
       
       <WaveBackground darkMode={darkMode} />
       <Navigation />
@@ -1347,20 +1351,30 @@ export default function App() {
 
       </main>
 
-      {/* FOOTER - Updated: Kasten-Design mit WhatsApp Button statt Text-Nummer */}
+      {/* FOOTER - Updated: Layout geändert (Kontakt unterhalb) */}
       <footer className={`py-12 border-t px-6 relative z-10 ${darkMode ? 'border-slate-800' : 'border-slate-200'}`}>
-           {/* HIER GEÄNDERT: flex-wrap hinzugefügt und auf lg:flex-row geändert, damit es auf Tablets umbricht */}
-           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row justify-between items-center gap-6 text-slate-500 text-sm font-medium flex-wrap">
+           <div className="max-w-6xl mx-auto flex flex-col items-center text-slate-500 text-sm font-medium">
              
-             {/* Kontakt Kasten */}
-             {/* HIER GEÄNDERT: Responsive Padding und Gap, damit der Kasten auf kleinen Bildschirmen schöner aussieht */}
-             <div className={`flex flex-col md:flex-row items-center gap-4 md:gap-6 px-6 md:px-8 py-4 rounded-full border transition-all ${darkMode ? 'bg-slate-900/50 border-slate-700 backdrop-blur-md hover:border-cyan-500/30' : 'bg-white/50 border-slate-200 hover:border-blue-300'}`}>
+             {/* 1. OBERE ZEILE: Impressum & Datenschutz */}
+             <div className="flex gap-6 mb-4 opacity-70">
+                <button onClick={() => setLegalView('imprint')} className="hover:text-cyan-500 transition-colors">Impressum</button>
+                <span>|</span>
+                <button onClick={() => setLegalView('privacy')} className="hover:text-cyan-500 transition-colors">Datenschutz</button>
+             </div>
+
+             {/* 2. Copyright */}
+             <div className="mb-10 opacity-50">
+                © {new Date().getFullYear()} Alle Rechte vorbehalten.
+             </div>
+
+             {/* 3. UNTERE ZEILE: Kontakt (Groß) */}
+             <div className={`flex flex-col md:flex-row items-center gap-4 md:gap-6 px-8 py-4 rounded-full border transition-all ${darkMode ? 'bg-slate-900/50 border-slate-700' : 'bg-white/50 border-slate-200'} hover:border-cyan-500/50`}>
                  <span className={textMain}>Pennueng Daenchai</span>
                  <span className="hidden md:inline opacity-30">•</span>
                  <span className={textSub}>Penjidaenchai@gmail.com</span>
                  <span className="hidden md:inline opacity-30">•</span>
                  
-                 {/* WhatsApp Button replacing phone number text */}
+                 {/* WhatsApp Button */}
                  <a 
                    href="https://wa.me/4916098720811"
                    target="_blank"
@@ -1372,14 +1386,6 @@ export default function App() {
                  </a>
              </div>
 
-             {/* Rechtliches */}
-             <div className="flex gap-4 opacity-60">
-                <button onClick={() => setLegalView('imprint')} className="hover:text-cyan-500 transition-colors">Impressum</button>
-                <span>|</span>
-                <button onClick={() => setLegalView('privacy')} className="hover:text-cyan-500 transition-colors">Datenschutz</button>
-             </div>
-
-             <div className="opacity-60">© {new Date().getFullYear()} Alle Rechte vorbehalten.</div>
            </div>
         </footer>
 
