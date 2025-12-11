@@ -5,7 +5,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { 
   Github, ExternalLink, Plus, Trash2, Code, Mail, Linkedin, User, Briefcase, X, 
   Phone, MapPin, Camera, Brain, Terminal, Database, ArrowRight, Moon, Sun, 
-  CheckCircle, Send, Search, PenTool, Zap, Clock, AlertCircle, Cpu, ShieldCheck, Microscope, Flame, Blocks, Wrench, GitBranch, Users, ClipboardList, BookOpen, Lightbulb, Target, Lock, Server, Table, Key, Hammer, MessageCircle, FileText, CheckSquare, Globe, Wifi, Layers, Monitor, Network, FileCheck
+  CheckCircle, Send, Search, PenTool, Zap, Clock, AlertCircle, Cpu, ShieldCheck, Microscope, Flame, Blocks, Wrench, GitBranch, Users, ClipboardList, BookOpen, Lightbulb, Target, Lock, Server, Table, Key, Hammer, MessageCircle, FileText, CheckSquare, Globe, Wifi, Layers, Monitor, Network, FileCheck, Menu
 } from 'lucide-react';
 
 // ==========================================
@@ -785,10 +785,10 @@ const WaveBackground = ({ darkMode }) => {
         : 'bg-[linear-gradient(to_right,#0000001a_1px,transparent_1px),linear-gradient(to_bottom,#0000001a_1px,transparent_1px)]'
       }`}></div>
 
-      {/* Pulsierende Neon Blobs */}
-      <div className={`absolute top-0 -left-20 w-[500px] h-[500px] rounded-full mix-blend-screen filter blur-[80px] animate-blob opacity-40 ${darkMode ? 'bg-cyan-900' : 'bg-cyan-300'}`}></div>
-      <div className={`absolute top-1/2 -right-20 w-[600px] h-[600px] rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000 opacity-30 ${darkMode ? 'bg-blue-900' : 'bg-blue-300'}`}></div>
-      <div className={`absolute -bottom-40 left-1/3 w-[500px] h-[500px] rounded-full mix-blend-screen filter blur-[90px] animate-blob animation-delay-4000 opacity-40 ${darkMode ? 'bg-purple-900' : 'bg-purple-300'}`}></div>
+      {/* Pulsierende Neon Blobs - NUR AUF PC SICHTBAR (Performance Fix) */}
+      <div className={`hidden md:block absolute top-0 -left-20 w-[500px] h-[500px] rounded-full mix-blend-screen filter blur-[80px] animate-blob opacity-40 ${darkMode ? 'bg-cyan-900' : 'bg-cyan-300'}`}></div>
+      <div className={`hidden md:block absolute top-1/2 -right-20 w-[600px] h-[600px] rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000 opacity-30 ${darkMode ? 'bg-blue-900' : 'bg-blue-300'}`}></div>
+      <div className={`hidden md:block absolute -bottom-40 left-1/3 w-[500px] h-[500px] rounded-full mix-blend-screen filter blur-[90px] animate-blob animation-delay-4000 opacity-40 ${darkMode ? 'bg-purple-900' : 'bg-purple-300'}`}></div>
       
       {/* Globale Pulsation */}
       <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-black/20 animate-pulse-slow pointer-events-none"></div>
@@ -896,42 +896,65 @@ export default function App() {
 
   // NAVIGATION
   const Navigation = () => (
-    <nav className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 flex justify-between items-center transition-all duration-700 ${darkMode ? 'bg-black/80 border-cyan-900/30' : 'bg-white/80 border-cyan-200'} backdrop-blur-md border-b`}>
-      <div className="max-w-6xl mx-auto w-full flex justify-between items-center">
-        <div 
-          onClick={handleLogoClick}
-          className={`text-2xl font-bold tracking-widest uppercase flex items-center gap-2 cursor-pointer select-none ${darkMode ? 'text-white' : 'text-slate-900'}`}
-        >
-          <Terminal size={24} className="text-cyan-500" />
-          PD<span className="text-cyan-500 drop-shadow-[0_0_5px_rgba(34,211,238,0.8)]">.DEV</span>
+    <>
+      {/* Desktop Navigation (Top) */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 flex justify-between items-center transition-all duration-700 ${darkMode ? 'bg-black/80 border-cyan-900/30' : 'bg-white/80 border-cyan-200'} backdrop-blur-md border-b`}>
+        <div className="max-w-6xl mx-auto w-full flex justify-between items-center">
+          <div 
+            onClick={handleLogoClick}
+            className={`text-2xl font-bold tracking-widest uppercase flex items-center gap-2 cursor-pointer select-none ${darkMode ? 'text-white' : 'text-slate-900'}`}
+          >
+            <Terminal size={24} className="text-cyan-500" />
+            PD<span className="text-cyan-500 drop-shadow-[0_0_5px_rgba(34,211,238,0.8)]">.DEV</span>
+          </div>
+          
+          <div className="flex items-center gap-6">
+            <div className="hidden md:flex gap-8">
+              {['Portfolio', 'Profil', 'Kontakt'].map((item) => (
+                <button 
+                  key={item}
+                  onClick={() => { setActiveTab(item === 'Profil' ? 'about' : item.toLowerCase()); setLegalView(null); }}
+                  className={`text-sm font-bold uppercase tracking-widest transition-all duration-300 
+                    ${activeTab === (item === 'Profil' ? 'about' : item.toLowerCase()) && !legalView
+                      ? 'text-cyan-500 drop-shadow-[0_0_5px_rgba(34,211,238,0.8)]' 
+                      : (darkMode ? 'text-slate-400 hover:text-red-500' : 'text-slate-500 hover:text-red-500')
+                    }`}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+
+            <button 
+              onClick={() => setDarkMode(!darkMode)}
+              className={`p-2 rounded-full transition-all duration-500 border ${darkMode ? 'bg-black border-cyan-500 text-cyan-400' : 'bg-white border-cyan-500 text-cyan-600'} hover:border-red-500 hover:text-red-500`}
+            >
+              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+          </div>
         </div>
-        
-        <div className="flex items-center gap-6">
-          <div className="hidden md:flex gap-8">
-            {['Portfolio', 'Profil', 'Kontakt'].map((item) => (
+      </nav>
+
+      {/* Mobile Navigation (Bottom) - NEU */}
+      <div className={`md:hidden fixed bottom-6 left-6 right-6 z-50 p-4 rounded-2xl flex justify-around items-center border shadow-2xl transition-all ${darkMode ? 'bg-black/90 border-slate-700 text-slate-400' : 'bg-white/90 border-slate-200 text-slate-500'} backdrop-blur-md`}>
+          {['Portfolio', 'Profil', 'Kontakt'].map((item) => (
               <button 
                 key={item}
-                onClick={() => { setActiveTab(item === 'Profil' ? 'about' : item.toLowerCase()); setLegalView(null); }}
-                className={`text-sm font-bold uppercase tracking-widest transition-all duration-300 
+                onClick={() => { setActiveTab(item === 'Profil' ? 'about' : item.toLowerCase()); setLegalView(null); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                className={`flex flex-col items-center gap-1 text-[10px] font-bold uppercase tracking-widest transition-all
                   ${activeTab === (item === 'Profil' ? 'about' : item.toLowerCase()) && !legalView
-                    ? 'text-cyan-500 drop-shadow-[0_0_5px_rgba(34,211,238,0.8)]' 
-                    : (darkMode ? 'text-slate-400 hover:text-red-500' : 'text-slate-500 hover:text-red-500')
+                    ? 'text-cyan-500 scale-110' 
+                    : 'hover:text-red-500'
                   }`}
               >
+                {item === 'Portfolio' && <Code size={20} />}
+                {item === 'Profil' && <User size={20} />}
+                {item === 'Kontakt' && <Mail size={20} />}
                 {item}
               </button>
-            ))}
-          </div>
-
-          <button 
-            onClick={() => setDarkMode(!darkMode)}
-            className={`p-2 rounded-full transition-all duration-500 border ${darkMode ? 'bg-black border-cyan-500 text-cyan-400' : 'bg-white border-cyan-500 text-cyan-600'} hover:border-red-500 hover:text-red-500`}
-          >
-            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
-        </div>
+          ))}
       </div>
-    </nav>
+    </>
   );
 
   return (
@@ -945,11 +968,12 @@ export default function App() {
       <WaveBackground darkMode={darkMode} />
       <Navigation />
 
-      <main className="max-w-6xl mx-auto px-4 pb-20 relative z-10">
+      <main className="max-w-6xl mx-auto px-4 pb-32 md:pb-20 relative z-10"> {/* Padding Bottom erhöht für Mobile Nav */}
         
         {/* LEGAL MODAL OVERLAY */}
         {legalView && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200" onClick={() => setLegalView(null)}>
+          // HIER GEÄNDERT: Z-Index auf 100 erhöht, damit es garantiert oben liegt
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200" onClick={() => setLegalView(null)}>
              <div className={`w-full max-w-2xl p-8 rounded-2xl border shadow-2xl relative overflow-y-auto max-h-[80vh] ${darkMode ? 'bg-slate-900 border-slate-700 text-slate-200' : 'bg-white border-slate-200 text-slate-800'}`} onClick={e => e.stopPropagation()}>
                 <button onClick={() => setLegalView(null)} className="absolute top-4 right-4 p-2 rounded-full hover:bg-red-500 hover:text-white transition-colors"><X size={24}/></button>
                 
@@ -1325,10 +1349,12 @@ export default function App() {
 
       {/* FOOTER - Updated: Kasten-Design mit WhatsApp Button statt Text-Nummer */}
       <footer className={`py-12 border-t px-6 relative z-10 ${darkMode ? 'border-slate-800' : 'border-slate-200'}`}>
-           <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-slate-500 text-sm font-medium">
+           {/* HIER GEÄNDERT: flex-wrap hinzugefügt und auf lg:flex-row geändert, damit es auf Tablets umbricht */}
+           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row justify-between items-center gap-6 text-slate-500 text-sm font-medium flex-wrap">
              
              {/* Kontakt Kasten */}
-             <div className={`flex flex-col md:flex-row items-center gap-4 md:gap-8 px-8 py-4 rounded-full border transition-all ${darkMode ? 'bg-slate-900/50 border-slate-700 backdrop-blur-md hover:border-cyan-500/30' : 'bg-white/50 border-slate-200 hover:border-blue-300'}`}>
+             {/* HIER GEÄNDERT: Responsive Padding und Gap, damit der Kasten auf kleinen Bildschirmen schöner aussieht */}
+             <div className={`flex flex-col md:flex-row items-center gap-4 md:gap-6 px-6 md:px-8 py-4 rounded-full border transition-all ${darkMode ? 'bg-slate-900/50 border-slate-700 backdrop-blur-md hover:border-cyan-500/30' : 'bg-white/50 border-slate-200 hover:border-blue-300'}`}>
                  <span className={textMain}>Pennueng Daenchai</span>
                  <span className="hidden md:inline opacity-30">•</span>
                  <span className={textSub}>Penjidaenchai@gmail.com</span>
