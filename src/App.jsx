@@ -1,7 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-// HINWEIS: Analytics ist standardmäßig auskommentiert.
-// import { Analytics } from '@vercel/analytics/react'; 
-
 import { 
   Github, ExternalLink, Plus, Trash2, Code, Mail, Linkedin, User, Briefcase, X, 
   Phone, MapPin, Camera, Brain, Terminal, Database, ArrowRight, Moon, Sun, 
@@ -9,11 +6,11 @@ import {
   Microscope, Flame, Blocks, Wrench, GitBranch, Users, ClipboardList, BookOpen, 
   Lightbulb, Target, Lock, Server, Table, Key, Hammer, MessageCircle, FileText, 
   CheckSquare, Globe, Wifi, Layers, Monitor, Network, FileCheck, Menu, ArrowDown,
-  Megaphone, Laptop, Award, Coffee
+  Megaphone, Laptop
 } from 'lucide-react';
 
 // ==========================================
-// GLOBAL STYLES
+// CSS STYLES
 // ==========================================
 const styles = `
   @keyframes blob {
@@ -47,11 +44,12 @@ const styles = `
   }
   
   .glass-panel-light {
-    background: rgba(255, 255, 255, 0.85); /* Mehr Deckkraft für weißeren Look */
+    background: #ffffff; /* Reinweiß als Fallback */
+    background: rgba(255, 255, 255, 0.95); /* Fast undurchsichtiges Weiß */
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 0, 0, 0.04); /* Sehr dezenter Border */
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05); /* Softer Shadow statt grauem Border */
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05); 
     transition: all 0.3s ease;
   }
   
@@ -61,7 +59,7 @@ const styles = `
   }
 
   .glass-panel-light:hover {
-    border-color: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.1);
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
     transform: translateY(-2px);
   }
@@ -80,33 +78,36 @@ const styles = `
 `;
 
 // ==========================================
-// SUB-COMPONENTS (DEFINED OUTSIDE APP FOR STABILITY)
+// SUB-COMPONENTS
 // ==========================================
 
 const WaveBackground = ({ darkMode }) => (
   <div className={`fixed inset-0 w-full h-full -z-10 overflow-hidden transition-colors duration-500 ${darkMode ? 'bg-black' : 'bg-white'}`}>
-    {/* Grid Overlay - Reduzierte Opazität im Lightmode für reineres Weiß */}
+    {/* Grid Overlay */}
     <div className={`absolute inset-0 bg-[size:40px_40px] ${darkMode 
       ? 'opacity-20 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)]' 
-      : 'opacity-[0.03] bg-[linear-gradient(to_right,#000000_1px,transparent_1px),linear-gradient(to_bottom,#000000_1px,transparent_1px)]'
+      : 'opacity-[0.02] bg-[linear-gradient(to_right,#000000_1px,transparent_1px),linear-gradient(to_bottom,#000000_1px,transparent_1px)]'
     }`}></div>
 
-    {/* Blobs */}
-    <div className={`hidden md:block absolute top-0 -left-20 w-[500px] h-[500px] rounded-full mix-blend-screen filter blur-[80px] animate-blob opacity-30 ${darkMode ? 'bg-cyan-900' : 'bg-cyan-100'}`}></div>
-    <div className={`hidden md:block absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full mix-blend-screen filter blur-[80px] animate-blob animation-delay-2000 opacity-30 ${darkMode ? 'bg-blue-900' : 'bg-blue-100'}`}></div>
+    {/* Blobs - Light Mode Farben heller gemacht */}
+    <div className={`hidden md:block absolute top-0 -left-20 w-[500px] h-[500px] rounded-full mix-blend-screen filter blur-[80px] animate-blob opacity-30 ${darkMode ? 'bg-cyan-900' : 'bg-slate-100'}`}></div>
+    <div className={`hidden md:block absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full mix-blend-screen filter blur-[80px] animate-blob animation-delay-2000 opacity-30 ${darkMode ? 'bg-blue-900' : 'bg-slate-100'}`}></div>
     
-    {/* Mobile Gradient */}
-    <div className={`md:hidden absolute inset-0 bg-gradient-to-b ${darkMode ? 'from-black via-slate-900 to-black' : 'from-white via-slate-50 to-white'} opacity-80`}></div>
+    {/* Mobile Gradient - REINES WEISS */}
+    <div className={`md:hidden absolute inset-0 bg-gradient-to-b ${darkMode ? 'from-black via-slate-900 to-black' : 'from-white via-white to-white'} opacity-100`}></div>
   </div>
 );
 
-const Navigation = ({ activeTab, setActiveTab, setLegalView, darkMode, setDarkMode, handleLogoClick }) => {
+const Navigation = ({ activeTab, setActiveTab, setLegalView, darkMode, toggleDarkMode, handleLogoClick }) => {
   const textMain = darkMode ? "text-white" : "text-slate-900";
+  const bgNav = darkMode ? "bg-black/80 border-cyan-900/30" : "bg-white/95 border-slate-100";
+  const mobileBg = darkMode ? "bg-black/90 border-slate-800" : "bg-white/95 border-slate-100";
+  const mobileNavBg = darkMode ? "bg-slate-900/95 border-slate-700 text-slate-400" : "bg-white/95 border-slate-200 text-slate-500";
   
   return (
     <>
       {/* Desktop Nav */}
-      <nav className={`fixed top-0 left-0 right-0 z-40 px-6 py-4 hidden md:flex justify-between items-center transition-all duration-300 ${darkMode ? 'bg-black/80 border-cyan-900/30' : 'bg-white/90 border-slate-100'} backdrop-blur-md border-b`}>
+      <nav className={`fixed top-0 left-0 right-0 z-40 px-6 py-4 hidden md:flex justify-between items-center transition-all duration-300 ${bgNav} backdrop-blur-md border-b`}>
         <div className="max-w-6xl mx-auto w-full flex justify-between items-center">
           <div onClick={handleLogoClick} className={`text-2xl font-bold tracking-widest uppercase flex items-center gap-2 cursor-pointer select-none ${textMain}`}>
             <Terminal size={24} className="text-cyan-500" />
@@ -117,6 +118,7 @@ const Navigation = ({ activeTab, setActiveTab, setLegalView, darkMode, setDarkMo
             <div className="flex gap-8">
               {['Portfolio', 'Profil', 'Kontakt'].map((item) => (
                 <button 
+                  type="button"
                   key={item} 
                   onClick={() => { setActiveTab(item === 'Profil' ? 'about' : item.toLowerCase()); setLegalView(null); }} 
                   className={`text-sm font-bold uppercase tracking-widest transition-all ${activeTab === (item === 'Profil' ? 'about' : item.toLowerCase()) && !activeTab.includes('legal') ? 'text-cyan-500' : 'text-slate-500 hover:text-cyan-400'}`}
@@ -125,7 +127,7 @@ const Navigation = ({ activeTab, setActiveTab, setLegalView, darkMode, setDarkMo
                 </button>
               ))}
             </div>
-            <button onClick={() => setDarkMode(!darkMode)} className={`p-2 rounded-full border transition-colors ${darkMode ? 'bg-black border-cyan-500 text-cyan-400' : 'bg-white border-slate-200 text-yellow-500 hover:border-yellow-400'}`}>
+            <button type="button" onClick={toggleDarkMode} className={`p-2 rounded-full border transition-colors ${darkMode ? 'bg-black border-cyan-500 text-cyan-400' : 'bg-white border-slate-200 text-yellow-500 hover:border-yellow-400'}`}>
               {darkMode ? <Moon size={18} /> : <Sun size={18} />}
             </button>
           </div>
@@ -133,20 +135,20 @@ const Navigation = ({ activeTab, setActiveTab, setLegalView, darkMode, setDarkMo
       </nav>
 
       {/* Mobile Top Bar */}
-      <div className={`md:hidden fixed top-0 left-0 right-0 z-40 px-4 py-3 flex justify-between items-center ${darkMode ? 'bg-black/90 border-slate-800' : 'bg-white/95 border-slate-100'} backdrop-blur border-b transition-colors duration-300`}>
+      <div className={`md:hidden fixed top-0 left-0 right-0 z-40 px-4 py-3 flex justify-between items-center ${mobileBg} backdrop-blur border-b transition-colors duration-300`}>
          <div onClick={handleLogoClick} className={`font-bold tracking-widest uppercase flex items-center gap-2 ${textMain}`}>
             <Terminal size={20} className="text-cyan-500" />
             PD.DEV
          </div>
-         <button onClick={() => setDarkMode(!darkMode)} className={`p-2 rounded-full transition-colors ${darkMode ? 'text-cyan-400 bg-slate-900' : 'text-yellow-500 bg-slate-50'}`}>
+         <button type="button" onClick={toggleDarkMode} className={`p-2 rounded-full transition-colors ${darkMode ? 'text-cyan-400 bg-slate-900' : 'text-yellow-500 bg-slate-50'}`}>
             {darkMode ? <Moon size={20} /> : <Sun size={20} />}
          </button>
       </div>
 
       {/* Mobile Bottom Nav */}
-      <div className={`md:hidden fixed bottom-6 left-4 right-4 z-[100] p-3 rounded-2xl flex justify-around items-center border shadow-2xl transition-all duration-300 ${darkMode ? 'bg-slate-900/95 border-slate-700 text-slate-400' : 'bg-white/95 border-slate-200 text-slate-500'} backdrop-blur-md`}>
+      <div className={`md:hidden fixed bottom-6 left-4 right-4 z-[100] p-3 rounded-2xl flex justify-around items-center border shadow-2xl transition-all duration-300 ${mobileNavBg} backdrop-blur-md`}>
           {['Portfolio', 'Profil', 'Kontakt'].map((item) => (
-              <button key={item} onClick={() => { setActiveTab(item === 'Profil' ? 'about' : item.toLowerCase()); setLegalView(null); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className={`flex flex-col items-center gap-1 text-[10px] font-bold uppercase tracking-widest transition-all ${activeTab === (item === 'Profil' ? 'about' : item.toLowerCase()) && !activeTab.includes('legal') ? 'text-cyan-500 scale-105' : ''}`}>
+              <button type="button" key={item} onClick={() => { setActiveTab(item === 'Profil' ? 'about' : item.toLowerCase()); setLegalView(null); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className={`flex flex-col items-center gap-1 text-[10px] font-bold uppercase tracking-widest transition-all ${activeTab === (item === 'Profil' ? 'about' : item.toLowerCase()) && !activeTab.includes('legal') ? 'text-cyan-500 scale-105' : ''}`}>
                 {item === 'Portfolio' && <Code size={20} />}
                 {item === 'Profil' && <User size={20} />}
                 {item === 'Kontakt' && <Mail size={20} />}
@@ -245,7 +247,6 @@ const ProjectCard = ({ project, onClick, cardStyle, textMain, textSub, isAdmin, 
 );
 
 // --- PROJECTS ---
-// Copywriting Project
 const CopywritingLandingProject = ({ onBack }) => {
   const [activeIndustry, setActiveIndustry] = useState(0);
   const [isAfterMode, setIsAfterMode] = useState(false);
@@ -256,6 +257,8 @@ const CopywritingLandingProject = ({ onBack }) => {
     { id: 1, name: "Zahnarzt", before: { url: "www.praxis-dr-stein.de/startseite", headline: "Zahnarztpraxis Dr. Stein", sub: "Unser Leistungsspektrum umfasst Prophylaxe, Füllungen und Implantologie.", cta: "Terminvereinbarung", bgClass: "bg-blue-50", textClass: "text-blue-900" }, after: { url: "www.angstfrei-zum-zahnarzt.de", headline: "Endlich wieder schmerzfrei essen.", sub: "Spezialisiert auf Angstpatienten: Sanfte Betäubung & entspannte Atmosphäre.", cta: "Online Termin buchen", bgClass: "bg-teal-950", textClass: "text-teal-50" } }
   ];
 
+  const handleSubmit = (e) => { e.preventDefault(); setFormStatus('submitting'); setTimeout(() => setFormStatus('success'), 1500); };
+
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans overflow-y-auto relative z-50">
        <nav className="fixed top-0 left-0 right-0 z-50 px-4 py-3 flex justify-between items-center bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
@@ -264,12 +267,20 @@ const CopywritingLandingProject = ({ onBack }) => {
         </nav>
         <section className="pt-28 pb-10 px-4 text-center max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight leading-tight">Worte. Wirkung. <span className="text-orange-500">Umsatz.</span></h1>
-            <p className="text-base md:text-xl text-slate-500 max-w-xl mx-auto mb-8">Premium Copywriting & SEO. Ich verwandle Besucher in Kunden. Ohne Meetings, rein schriftlich.</p>
+            <p className="text-base md:text-xl text-slate-500 max-w-xl mx-auto mb-8">Premium Copywriting & SEO.</p>
             <a href="#audit" className="bg-orange-500 text-white px-6 py-3 rounded-full font-bold text-sm md:text-base hover:bg-orange-600 transition shadow-lg inline-flex items-center gap-2">Kostenlose Analyse <ArrowRight size={18} /></a>
         </section>
-        {/* Simplified for brevity - Imagine Browser Slider here from previous code */}
-        <section className="px-4 pb-16 text-center text-slate-400 text-sm">-- Interaktiver Slider (Siehe vorherigen Code) --</section>
-        <section id="audit" className="py-16 px-4 bg-slate-50"><div className="max-w-md mx-auto text-center"><h3 className="text-2xl font-bold">Interesse geweckt?</h3><p className="text-slate-500">Lassen Sie uns Ihre Website analysieren.</p></div></section>
+        <section className="px-4 pb-16">
+          <div className="max-w-4xl mx-auto border-4 border-slate-200 rounded-xl overflow-hidden shadow-2xl bg-white relative">
+             <div className="h-8 bg-slate-100 border-b flex items-center px-3 gap-2"><div className="flex gap-1"><div className="w-2 h-2 rounded-full bg-red-400"></div><div className="w-2 h-2 rounded-full bg-yellow-400"></div><div className="w-2 h-2 rounded-full bg-green-400"></div></div><div className="flex-1 bg-white mx-2 rounded text-[10px] text-center py-0.5 text-gray-500 font-mono truncate">{isAfterMode ? industries[activeIndustry].after.url : industries[activeIndustry].before.url}</div></div>
+             <div className="relative min-h-[400px] md:aspect-video group flex flex-col justify-center">
+                <div className={`absolute inset-0 flex flex-col items-center justify-center text-center p-6 md:p-12 transition-all duration-500 ${isAfterMode ? industries[activeIndustry].after.bgClass : industries[activeIndustry].before.bgClass} ${isAfterMode ? industries[activeIndustry].after.textClass : industries[activeIndustry].before.textClass}`}><h2 className="text-2xl md:text-4xl font-bold mb-4 leading-tight">{isAfterMode ? industries[activeIndustry].after.headline : industries[activeIndustry].before.headline}</h2><p className="text-sm md:text-lg mb-8 max-w-lg mx-auto opacity-90 leading-relaxed">{isAfterMode ? industries[activeIndustry].after.sub : industries[activeIndustry].before.sub}</p><button className={`px-6 py-3 font-bold rounded text-sm ${isAfterMode ? 'bg-orange-500 text-white shadow-lg transform scale-105' : 'border-2 border-current'}`}>{isAfterMode ? industries[activeIndustry].after.cta : industries[activeIndustry].before.cta}</button></div>
+                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur text-white p-1 rounded-full flex gap-1 cursor-pointer border border-white/20 shadow-xl" onClick={() => setIsAfterMode(!isAfterMode)}><div className={`px-4 py-2 rounded-full transition-all text-xs font-bold ${!isAfterMode ? 'bg-slate-700' : 'hover:bg-white/10'}`}>Vorher</div><div className={`px-4 py-2 rounded-full transition-all text-xs font-bold ${isAfterMode ? 'bg-orange-500' : 'hover:bg-white/10'}`}>Nachher</div></div>
+             </div>
+          </div>
+          <div className="flex justify-center gap-2 mt-4 overflow-x-auto pb-2 no-scrollbar px-4">{industries.map((ind) => (<button key={ind.id} onClick={() => { setActiveIndustry(ind.id); setIsAfterMode(false); }} className={`px-4 py-2 rounded-full text-xs font-bold border transition whitespace-nowrap ${activeIndustry === ind.id ? 'bg-orange-500 text-white border-orange-500' : 'bg-white text-slate-500 border-slate-300'}`}>{ind.name}</button>))}</div>
+        </section>
+        <section id="audit" className="py-16 px-4 bg-slate-50 mb-20"><div className="max-w-md mx-auto text-center"><h3 className="text-2xl font-bold">Interesse geweckt?</h3><p className="text-slate-500 mb-4">Lassen Sie uns Ihre Website analysieren.</p>{formStatus === 'success' ? (<div className="p-8 bg-green-50 text-green-600 rounded-xl font-bold"><CheckCircle className="mx-auto mb-2"/>Gesendet!</div>) : (<form onSubmit={handleSubmit} className="space-y-4"><input required type="email" className="w-full p-3 bg-white rounded-lg border" placeholder="ihre@email.de" /><button type="submit" className="bg-orange-500 text-white font-bold py-3 px-8 rounded-lg w-full">Anfragen</button></form>)}</div></section>
     </div>
   );
 }
@@ -283,14 +294,11 @@ const CopywritingDocsView = ({ onBack, darkMode }) => {
   return (
     <div className={`min-h-screen p-4 md:p-8 overflow-y-auto relative z-50 ${darkMode ? 'bg-black text-slate-200' : 'bg-white text-slate-800'} pb-24`}>
       <div className="max-w-3xl mx-auto">
-        <nav className="flex justify-between items-center mb-8 sticky top-0 z-10 py-2 bg-inherit/90 backdrop-blur-md">
-           <div className={`text-lg md:text-xl font-bold cursor-pointer hover:opacity-80 flex items-center gap-2 ${textMain}`} onClick={onBack}><Brain size={20} className="text-purple-500" /><span>Copy.Docs</span></div>
-           <button onClick={onBack} className={`p-2 rounded-full border transition-all ${darkMode ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-white border-slate-200 hover:bg-slate-100'}`}><X size={18} /></button>
-        </nav>
+        <nav className="flex justify-between items-center mb-8 sticky top-0 z-10 py-2 bg-inherit/90 backdrop-blur-md"><div className={`text-lg md:text-xl font-bold cursor-pointer hover:opacity-80 flex items-center gap-2 ${textMain}`} onClick={onBack}><Brain size={20} className="text-purple-500" /><span>Copy.Docs</span></div><button onClick={onBack} className={`p-2 rounded-full border transition-all ${darkMode ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-white border-slate-200 hover:bg-slate-100'}`}><X size={18} /></button></nav>
         <header className="mb-10 text-center"><h1 className={`text-2xl md:text-4xl font-bold mb-3 ${textMain}`}>Cheat Sheet</h1><p className="text-sm md:text-base opacity-60">Psychologie & Struktur für bessere Texte.</p></header>
         <div className="space-y-6">
-          <section className={`p-6 rounded-2xl border ${cardClass}`}><h2 className="text-lg font-bold mb-2 text-purple-500">1. Der "Na und?"-Test</h2><p className={`text-xs ${textSub}`}>Features sind Fakten. Benefits sind Gefühle.</p></section>
-          {/* ... more content ... */}
+          <section className={`p-6 rounded-2xl border ${cardClass}`}><h2 className="text-lg font-bold mb-2 text-purple-500">1. Der "Na und?"-Test</h2><p className={`text-xs ${textSub}`}>Features sind Fakten. Benefits sind Gefühle. Teste jede Aussage mit "Na und?".</p></section>
+          <section className={`p-6 rounded-2xl border ${cardClass}`}><h2 className="text-lg font-bold mb-4 text-purple-500">2. A.I.D.A.</h2><ul className="space-y-2 text-sm"><li className="flex gap-3"><span className="font-bold text-purple-400 w-4">A</span><span>Attention</span></li><li className="flex gap-3"><span className="font-bold text-purple-400 w-4">I</span><span>Interest</span></li><li className="flex gap-3"><span className="font-bold text-purple-400 w-4">D</span><span>Desire</span></li><li className="flex gap-3"><span className="font-bold text-purple-400 w-4">A</span><span>Action</span></li></ul></section>
         </div>
       </div>
     </div>
@@ -318,10 +326,7 @@ const NetworkProjectView = ({ onBack, darkMode }) => {
   return (
     <div className={`min-h-screen p-4 overflow-y-auto relative z-50 ${darkMode ? 'bg-black text-slate-200' : 'bg-white text-slate-800'} pb-24`}>
       <div className="max-w-4xl mx-auto">
-        <nav className="flex justify-between items-center mb-6">
-            <div className="flex items-center gap-3 cursor-pointer" onClick={onBack}><div className="p-2 bg-cyan-500/10 text-cyan-500 rounded-lg"><Network size={20}/></div><div><h1 className="text-lg font-bold">Web & Network</h1><p className="opacity-60 text-[10px] uppercase">IP, Hosting & API</p></div></div>
-            <button onClick={onBack} className={`p-2 rounded-full border ${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'}`}><X size={18} /></button>
-        </nav>
+        <nav className="flex justify-between items-center mb-6"><div className="flex items-center gap-3 cursor-pointer" onClick={onBack}><div className="p-2 bg-cyan-500/10 text-cyan-500 rounded-lg"><Network size={20}/></div><div><h1 className="text-lg font-bold">Web & Network</h1><p className="opacity-60 text-[10px] uppercase">IP, Hosting & API</p></div></div><button onClick={onBack} className={`p-2 rounded-full border ${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'}`}><X size={18} /></button></nav>
         <section className={`p-5 rounded-2xl border flex flex-col mb-6 ${cardClass}`}>
              <div className="flex justify-between items-center mb-4"><h2 className="text-base font-bold flex items-center gap-2"><Monitor className="text-cyan-500" size={18}/> Simulator</h2><div className="text-[10px] px-2 py-1 rounded bg-slate-800 border border-slate-700 font-mono text-slate-300">Status: {step === 0 ? 'IDLE' : step === 5 ? 'DONE' : 'RUN'}</div></div>
              <div className="relative w-full h-[360px] md:h-[400px] bg-slate-900/50 rounded-2xl border border-slate-700/50 overflow-hidden flex items-center justify-center mb-6">
@@ -330,7 +335,6 @@ const NetworkProjectView = ({ onBack, darkMode }) => {
                     <line x1="50%" y1="20%" x2="80%" y2="80%" stroke={step >= 2 ? "#a855f7" : "#334155"} strokeWidth={step >= 2 ? "2" : "1"} strokeDasharray={step === 2 ? "5,5" : "4,4"} strokeOpacity={step >= 2 ? "1" : "0.3"} className={`transition-colors duration-700 ${step === 2 ? "animate-pulse" : ""}`}/>
                     <line x1="20%" y1="80%" x2="80%" y2="80%" stroke={step >= 3 ? "#10b981" : "#334155"} strokeWidth={step >= 3 ? "3" : "2"} strokeDasharray={step === 4 ? "5,5" : "0"} className={`transition-colors duration-700 ${step >= 3 ? "" : ""}`}/>
                 </svg>
-                {/* Nodes simplified */}
                 <div className={`absolute top-[20%] left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-2 z-10 ${step >= 1 ? 'scale-110' : 'opacity-60 grayscale'}`}><div className={`p-3 rounded-full border-2 ${step >= 1 ? 'bg-purple-500/20 border-purple-500 text-purple-400' : 'bg-slate-800 border-slate-700 text-slate-500'}`}><Globe size={24}/></div><span className="text-[10px] font-bold bg-black/60 px-2 py-1 rounded text-slate-300">DNS</span></div>
                 <div className={`absolute bottom-[20%] left-[20%] -translate-x-1/2 translate-y-1/2 flex flex-col items-center gap-2 z-10 ${step >= 0 ? 'scale-110' : 'opacity-60'}`}><div className={`p-3 rounded-full border-2 ${step >= 0 ? 'bg-cyan-500/20 border-cyan-500 text-cyan-400' : 'bg-slate-800 border-slate-700 text-slate-500'}`}><Monitor size={24}/></div><span className="text-[10px] font-bold bg-black/60 px-2 py-1 rounded text-slate-300">User</span></div>
                 <div className={`absolute bottom-[20%] right-[20%] translate-x-1/2 translate-y-1/2 flex flex-col items-center gap-2 z-10 ${step >= 2 ? 'scale-110' : 'opacity-60 grayscale'}`}><div className={`p-3 rounded-full border-2 ${step >= 2 ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400' : 'bg-slate-800 border-slate-700 text-slate-500'}`}><Server size={24}/></div><span className="text-[10px] font-bold bg-black/60 px-2 py-1 rounded text-slate-300">Server</span></div>
@@ -350,7 +354,6 @@ const DatabaseProjectView = ({ onBack, darkMode }) => {
 // MAIN APP COMPONENT
 // ==========================================
 export default function App() {
-  // --- STATE ---
   const [projects, setProjects] = useState([
     { id: "network-basics", title: "Web-Infrastruktur & APIs", description: "Interaktive Simulation von DNS, Server-Hosting und API-Requests.", tags: ["Network", "API", "DNS"], image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800", viewType: 'network', isInternal: true },
     { id: "database-project", title: "E-Commerce Database", description: "Entwurf eines relationalen Datenbankschemas. SQL-Abfragen & JOINs.", tags: ["SQL", "Database", "Backend"], image: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&q=80&w=800", viewType: 'database', isInternal: true },
@@ -358,14 +361,33 @@ export default function App() {
     { id: "landing-page-project", title: "High-End Landing Page", description: "Interaktive Landingpage mit Vorher/Nachher-Slider.", tags: ["React", "UI/UX"], image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800", viewType: 'landing', isInternal: true }
   ]);
   
+  // --- STATE WITH LOCAL STORAGE PERSISTENCE ---
   const [activeTab, setActiveTab] = useState('portfolio'); 
   const [currentView, setCurrentView] = useState('portfolio');
   const [legalView, setLegalView] = useState(null);
-  const [darkMode, setDarkMode] = useState(true); 
+  
+  // FIXED: Persist Dark Mode in Local Storage
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const savedMode = localStorage.getItem('darkMode');
+      return savedMode === 'false' ? false : true;
+    }
+    return true;
+  });
+
   const [isAdmin, setIsAdmin] = useState(false); 
   const [adminClicks, setAdminClicks] = useState(0); 
   const [profileImage, setProfileImage] = useState("/9404.png"); 
   const fileInputRef = useRef(null);
+
+  // FIXED: Save Dark Mode to Local Storage on Change
+  const toggleDarkMode = () => {
+    setDarkMode(prev => {
+      const newMode = !prev;
+      localStorage.setItem('darkMode', newMode);
+      return newMode;
+    });
+  };
 
   const handleImageUpload = (e) => { const file = e.target.files[0]; if (file) setProfileImage(URL.createObjectURL(file)); };
   const handleAdminTrigger = () => { const newClicks = adminClicks + 1; setAdminClicks(newClicks); if (newClicks === 5) { setIsAdmin(true); alert("Admin Modus aktiviert!"); } };
@@ -387,7 +409,16 @@ export default function App() {
     <div className={`min-h-screen font-sans transition-colors duration-500 ${darkMode ? 'bg-black' : 'bg-white'}`}>
       <style>{styles}</style>
       <WaveBackground darkMode={darkMode} />
-      <Navigation activeTab={activeTab} setActiveTab={setActiveTab} setLegalView={setLegalView} darkMode={darkMode} setDarkMode={setDarkMode} handleLogoClick={handleLogoClick} />
+      
+      {/* Navigation Passed as Component */}
+      <Navigation 
+        activeTab={activeTab} 
+        setActiveTab={setActiveTab} 
+        setLegalView={setLegalView} 
+        darkMode={darkMode} 
+        toggleDarkMode={toggleDarkMode} // Passed clean toggler
+        handleLogoClick={handleLogoClick} 
+      />
 
       <main className="max-w-6xl mx-auto px-4 pb-32 pt-20 relative z-10">
         {/* PORTFOLIO CONTENT */}
@@ -474,18 +505,49 @@ export default function App() {
              </div>
 
              <SectionTitle icon={Brain} title="Kompetenzen" darkMode={darkMode} />
+             
+             {/* FIXED SKILLS WITH STATIC CLASSES TO PREVENT PURGING */}
              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-               {[
-                 {title: "Fehleranalyse", icon: <Microscope className="text-emerald-500" size={20}/>, desc: "Ich finde Bugs und Probleme, bevor sie kritisch werden.", tags: ["Debugging", "Quality Checks", "System-Tests", "Troubleshooting"], color: "emerald"},
-                 {title: "Tech Stack", icon: <Terminal className="text-blue-500" size={20}/>, desc: "Stabiles Fundament durch Umschulung & Eigenstudium.", tags: ["Java", "C#", "Python", "React", "AI Prompting", "Linux"], color: "blue"},
-                 {title: "Workflow", icon: <GitBranch className="text-orange-500" size={20}/>, desc: "Ich weiß, wie professionelle Teams arbeiten.", tags: ["Git & Bitbucket", "Scrum / Agile", "Jira / Tickets", "Support"], color: "orange"}
-               ].map((skill, i) => (
-                 <div key={i} className={`p-6 rounded-xl ${cardStyle}`}>
-                   <h3 className={`text-xl font-bold mb-4 flex items-center gap-2 ${textMain}`}>{skill.icon} {skill.title}</h3>
-                   <p className={`text-sm mb-4 ${textSub}`}>{skill.desc}</p>
-                   <div className="flex flex-wrap gap-2">{skill.tags.map(t => <span key={t} className={`px-3 py-1 rounded text-xs border bg-${skill.color}-500/10 text-${skill.color}-500 border-${skill.color}-500/30`}>{t}</span>)}</div>
+               
+               {/* 1. Fehleranalyse - Emerald */}
+               <div className={`p-6 rounded-xl ${cardStyle}`}>
+                 <h3 className={`text-xl font-bold mb-4 flex items-center gap-2 ${textMain}`}>
+                   <Microscope className="text-emerald-500" size={20}/> Fehleranalyse
+                 </h3>
+                 <p className={`text-sm mb-4 ${textSub}`}>Ich finde Bugs und Probleme, bevor sie kritisch werden.</p>
+                 <div className="flex flex-wrap gap-2">
+                   {["Debugging", "Quality Checks", "System-Tests", "Troubleshooting"].map(t => (
+                     <span key={t} className={`px-3 py-1 rounded text-xs border bg-emerald-500/10 text-emerald-500 border-emerald-500/30`}>{t}</span>
+                   ))}
                  </div>
-               ))}
+               </div>
+
+               {/* 2. Tech Stack - Blue */}
+               <div className={`p-6 rounded-xl ${cardStyle}`}>
+                 <h3 className={`text-xl font-bold mb-4 flex items-center gap-2 ${textMain}`}>
+                   <Terminal className="text-blue-500" size={20}/> Tech Stack
+                 </h3>
+                 <p className={`text-sm mb-4 ${textSub}`}>Stabiles Fundament durch Umschulung & Eigenstudium.</p>
+                 <div className="flex flex-wrap gap-2">
+                   {["Java", "C#", "Python", "React", "AI Prompting", "Linux"].map(t => (
+                     <span key={t} className={`px-3 py-1 rounded text-xs border bg-blue-500/10 text-blue-500 border-blue-500/30`}>{t}</span>
+                   ))}
+                 </div>
+               </div>
+
+               {/* 3. Workflow - Orange */}
+               <div className={`p-6 rounded-xl ${cardStyle}`}>
+                 <h3 className={`text-xl font-bold mb-4 flex items-center gap-2 ${textMain}`}>
+                   <GitBranch className="text-orange-500" size={20}/> Workflow
+                 </h3>
+                 <p className={`text-sm mb-4 ${textSub}`}>Ich weiß, wie professionelle Teams arbeiten.</p>
+                 <div className="flex flex-wrap gap-2">
+                   {["Git & Bitbucket", "Scrum / Agile", "Jira / Tickets", "Support"].map(t => (
+                     <span key={t} className={`px-3 py-1 rounded text-xs border bg-orange-500/10 text-orange-500 border-orange-500/30`}>{t}</span>
+                   ))}
+                 </div>
+               </div>
+
              </div>
           </div>
         )}
@@ -530,7 +592,7 @@ export default function App() {
                    {legalView === 'imprint' ? (
                      <div className="space-y-4"><div><h3 className="font-bold text-base mb-2">Angaben gemäß § 5 TMG</h3><p>Pennueng Daenchai</p><p>Lappacher Weg 19</p><p>91315 Höchstadt a.d. Aisch</p></div><div><h3 className="font-bold text-base mb-2">Kontakt</h3><p>Telefon: 0160 98720811</p><p>E-Mail: Penjidaenchai@gmail.com</p></div><div className="text-xs opacity-60 mt-8 p-4 bg-black/20 rounded">Hinweis: Dies ist ein Portfolio zur Bewerbung. Es werden keine kostenpflichtigen Dienstleistungen direkt über diese Seite abgewickelt.</div></div>
                    ) : (
-                     <div className="space-y-4"><p>Verantwortlicher im Sinne der Datenschutzgesetze, insbesondere der EU-Datenschutzgrundverordnung (DSGVO), ist: <strong>Pennueng Daenchai (siehe Impressum)</strong></p><h3 className="font-bold text-cyan-500 mt-4">1. Datenschutz auf einen Blick</h3><p><strong>Allgemeine Hinweise:</strong> Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.</p><h3 className="font-bold text-cyan-500 mt-4">2. Hosting</h3><p>Diese Website wird bei einem externen Dienstleister gehostet (Hoster). Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern des Hosters gespeichert.</p><h3 className="font-bold text-cyan-500 mt-4">3. Datenerfassung auf dieser Website</h3><p><strong>Vercel Web Analytics:</strong> Diese Website nutzt 'Vercel Analytics' zur statistischen Auswertung. Die Erfassung erfolgt anonymisiert.</p><h3 className="font-bold text-cyan-500 mt-4">4. Ihre Rechte</h3><p>Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten.</p></div>
+                     <div className="space-y-4"><p>Verantwortlicher im Sinne der Datenschutzgesetze, insbesondere der EU-Datenschutzgrundverordnung (DSGVO), ist: <strong>Pennueng Daenchai (siehe Impressum)</strong></p><h3 className="font-bold text-cyan-500 mt-4">1. Datenschutz auf einen Blick</h3><p><strong>Allgemeine Hinweise:</strong> Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.</p><h3 className="font-bold text-cyan-500 mt-4">2. Hosting</h3><p>Diese Website wird bei einem externen Dienstleister gehostet (Hoster). Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern des Hosters gespeichert. Hierbei kann es sich v. a. um IP-Adressen, Meta- und Kommunikationsdaten handeln.</p><h3 className="font-bold text-cyan-500 mt-4">3. Datenerfassung auf dieser Website</h3><p><strong>Vercel Web Analytics:</strong> Diese Website nutzt 'Vercel Analytics' zur statistischen Auswertung. Die Erfassung erfolgt anonymisiert.</p><h3 className="font-bold text-cyan-500 mt-4">4. Ihre Rechte</h3><p>Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten.</p></div>
                    )}
                 </div>
              </div>
