@@ -53,15 +53,22 @@ const styles = `
     transition: all 0.3s ease;
   }
   .glass-panel-light {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.6); /* Transparenter für weißen Hintergrund */
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(6, 182, 212, 0.3); 
+    border: 1px solid rgba(0, 0, 0, 0.05); /* Dezenterer Border für Clean Look */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
     transition: all 0.3s ease;
   }
   
-  .glass-panel-dark:hover, .glass-panel-light:hover {
+  .glass-panel-dark:hover {
     border-color: rgba(6, 182, 212, 0.6);
+    transform: translateY(-2px);
+  }
+
+  .glass-panel-light:hover {
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
     transform: translateY(-2px);
   }
   
@@ -170,12 +177,12 @@ const TechStackTicker = ({ darkMode }) => {
 
   return (
     <div className="w-full overflow-hidden py-8 relative">
-      <div className={`absolute inset-y-0 left-0 w-16 z-10 bg-gradient-to-r ${darkMode ? 'from-black to-transparent' : 'from-slate-50 to-transparent'}`}></div>
-      <div className={`absolute inset-y-0 right-0 w-16 z-10 bg-gradient-to-l ${darkMode ? 'from-black to-transparent' : 'from-slate-50 to-transparent'}`}></div>
+      <div className={`absolute inset-y-0 left-0 w-16 z-10 bg-gradient-to-r ${darkMode ? 'from-black to-transparent' : 'from-white to-transparent'}`}></div>
+      <div className={`absolute inset-y-0 right-0 w-16 z-10 bg-gradient-to-l ${darkMode ? 'from-black to-transparent' : 'from-white to-transparent'}`}></div>
       
       <div className="flex animate-marquee w-max gap-8">
         {items.map((item, i) => (
-          <div key={i} className={`flex items-center gap-2 px-4 py-2 rounded-full border ${darkMode ? 'bg-slate-900 border-slate-800 text-slate-300' : 'bg-white border-slate-200 text-slate-600'}`}>
+          <div key={i} className={`flex items-center gap-2 px-4 py-2 rounded-full border ${darkMode ? 'bg-slate-900 border-slate-800 text-slate-300' : 'bg-white border-slate-200 text-slate-600 shadow-sm'}`}>
             <span className="text-cyan-500">{item.icon}</span>
             <span className="text-sm font-bold uppercase tracking-wider">{item.name}</span>
           </div>
@@ -349,7 +356,7 @@ const CopywritingDocsView = ({ onBack, darkMode }) => {
   const textSub = darkMode ? "text-slate-400" : "text-slate-600";
 
   return (
-    <div className={`min-h-screen p-4 md:p-8 overflow-y-auto relative z-50 ${darkMode ? 'bg-black text-slate-200' : 'bg-slate-50 text-slate-800'} pb-24`}>
+    <div className={`min-h-screen p-4 md:p-8 overflow-y-auto relative z-50 ${darkMode ? 'bg-black text-slate-200' : 'bg-white text-slate-800'} pb-24`}>
       <div className="max-w-3xl mx-auto">
         <nav className="flex justify-between items-center mb-8 sticky top-0 z-10 py-2 bg-inherit/90 backdrop-blur-md">
            <div className={`text-lg md:text-xl font-bold cursor-pointer hover:opacity-80 flex items-center gap-2 ${textMain}`} onClick={onBack}>
@@ -482,7 +489,7 @@ LIMIT 5;`,
   ];
 
   return (
-    <div className={`min-h-screen p-4 overflow-y-auto relative z-50 ${darkMode ? 'bg-black text-slate-200' : 'bg-slate-50 text-slate-800'} pb-24`}>
+    <div className={`min-h-screen p-4 overflow-y-auto relative z-50 ${darkMode ? 'bg-black text-slate-200' : 'bg-white text-slate-800'} pb-24`}>
       <div className="max-w-4xl mx-auto">
         <nav className="flex justify-between items-center mb-6">
             <div className="flex items-center gap-3 cursor-pointer" onClick={onBack}>
@@ -561,7 +568,7 @@ const NetworkProjectView = ({ onBack, darkMode }) => {
   const resetSimulation = () => { setStep(0); setLogs([]); };
 
   return (
-    <div className={`min-h-screen p-4 overflow-y-auto relative z-50 ${darkMode ? 'bg-black text-slate-200' : 'bg-slate-50 text-slate-800'} pb-24`}>
+    <div className={`min-h-screen p-4 overflow-y-auto relative z-50 ${darkMode ? 'bg-black text-slate-200' : 'bg-white text-slate-800'} pb-24`}>
       <div className="max-w-4xl mx-auto">
         <nav className="flex justify-between items-center mb-6">
             <div className="flex items-center gap-3 cursor-pointer" onClick={onBack}>
@@ -695,7 +702,7 @@ const NetworkProjectView = ({ onBack, darkMode }) => {
 // HAUPT-APP
 // ==========================================
 const WaveBackground = ({ darkMode }) => (
-  <div className={`fixed inset-0 w-full h-full -z-10 overflow-hidden ${darkMode ? 'bg-black' : 'bg-slate-100'}`}>
+  <div className={`fixed inset-0 w-full h-full -z-10 overflow-hidden ${darkMode ? 'bg-black' : 'bg-white'}`}>
     {/* Grid Overlay */}
     <div className={`absolute inset-0 opacity-10 bg-[size:40px_40px] ${darkMode 
       ? 'bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)]' 
@@ -707,7 +714,7 @@ const WaveBackground = ({ darkMode }) => (
     <div className={`hidden md:block absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full mix-blend-screen filter blur-[80px] animate-blob animation-delay-2000 opacity-30 ${darkMode ? 'bg-blue-900' : 'bg-blue-300'}`}></div>
     
     {/* Simple Gradient für Mobile */}
-    <div className={`md:hidden absolute inset-0 bg-gradient-to-b ${darkMode ? 'from-black via-slate-900 to-black' : 'from-white via-slate-50 to-white'} opacity-80`}></div>
+    <div className={`md:hidden absolute inset-0 bg-gradient-to-b ${darkMode ? 'from-black via-slate-900 to-black' : 'from-white via-white to-white'} opacity-80`}></div>
   </div>
 );
 
@@ -799,7 +806,7 @@ export default function App() {
   if (currentView === 'database') return <DatabaseProjectView onBack={() => setCurrentView('portfolio')} darkMode={darkMode} />;
 
   return (
-    <div className={`min-h-screen font-sans transition-colors duration-500 ${darkMode ? 'bg-black' : 'bg-slate-50'}`}>
+    <div className={`min-h-screen font-sans transition-colors duration-500 ${darkMode ? 'bg-black' : 'bg-white'}`}>
       <style>{styles}</style>
       {/* <Analytics /> */}
       <WaveBackground darkMode={darkMode} />
