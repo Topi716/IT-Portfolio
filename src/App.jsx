@@ -798,9 +798,12 @@ export default function App() {
   if (currentView === 'docs') return <CopywritingDocsView onBack={() => setCurrentView('portfolio')} darkMode={darkMode} />;
   if (currentView === 'database') return <DatabaseProjectView onBack={() => setCurrentView('portfolio')} darkMode={darkMode} />;
 
-  // NAVIGATION COMPONENT
-  const Navigation = () => (
-    <>
+  return (
+    <div className={`min-h-screen font-sans transition-colors duration-500 ${darkMode ? 'bg-black' : 'bg-slate-50'}`}>
+      <style>{styles}</style>
+      {/* <Analytics /> */}
+      <WaveBackground darkMode={darkMode} />
+      
       {/* Desktop Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-40 px-6 py-4 hidden md:flex justify-between items-center transition-all duration-300 ${darkMode ? 'bg-black/80 border-cyan-900/30' : 'bg-white/80 border-cyan-200'} backdrop-blur-md border-b`}>
         <div className="max-w-6xl mx-auto w-full flex justify-between items-center">
@@ -812,12 +815,12 @@ export default function App() {
           <div className="flex items-center gap-6">
             <div className="flex gap-8">
               {['Portfolio', 'Profil', 'Kontakt'].map((item) => (
-                <button key={item} onClick={() => { setActiveTab(item === 'Profil' ? 'about' : item.toLowerCase()); setLegalView(null); }} className={`text-sm font-bold uppercase tracking-widest transition-all ${activeTab === (item === 'Profil' ? 'about' : item.toLowerCase()) && !legalView ? 'text-cyan-500' : 'text-slate-500 hover:text-cyan-400'}`}>
+                <button type="button" key={item} onClick={() => { setActiveTab(item === 'Profil' ? 'about' : item.toLowerCase()); setLegalView(null); }} className={`text-sm font-bold uppercase tracking-widest transition-all ${activeTab === (item === 'Profil' ? 'about' : item.toLowerCase()) && !legalView ? 'text-cyan-500' : 'text-slate-500 hover:text-cyan-400'}`}>
                   {item}
                 </button>
               ))}
             </div>
-            <button onClick={() => setDarkMode(!darkMode)} className={`p-2 rounded-full border ${darkMode ? 'bg-black border-cyan-500 text-cyan-400' : 'bg-white border-cyan-500 text-cyan-600'}`}>
+            <button type="button" onClick={() => setDarkMode(!darkMode)} className={`p-2 rounded-full border ${darkMode ? 'bg-black border-cyan-500 text-cyan-400' : 'bg-white border-cyan-500 text-cyan-600'}`}>
               {darkMode ? <Sun size={18} /> : <Moon size={18} />}
             </button>
           </div>
@@ -830,7 +833,7 @@ export default function App() {
             <Terminal size={20} className="text-cyan-500" />
             PD.DEV
          </div>
-         <button onClick={() => setDarkMode(!darkMode)} className={`p-2 rounded-full ${darkMode ? 'text-yellow-400' : 'text-slate-600'}`}>
+         <button type="button" onClick={() => setDarkMode(!darkMode)} className={`p-2 rounded-full ${darkMode ? 'text-yellow-400' : 'text-slate-600'}`}>
             {darkMode ? <Sun size={20} /> : <Moon size={20} />}
          </button>
       </div>
@@ -838,7 +841,7 @@ export default function App() {
       {/* Mobile Navigation (Bottom) - Elevated Z-Index */}
       <div className={`md:hidden fixed bottom-6 left-4 right-4 z-[100] p-3 rounded-2xl flex justify-around items-center border shadow-2xl ${darkMode ? 'bg-slate-900/95 border-slate-700 text-slate-400' : 'bg-white/95 border-slate-200 text-slate-500'} backdrop-blur-md`}>
           {['Portfolio', 'Profil', 'Kontakt'].map((item) => (
-              <button key={item} onClick={() => { setActiveTab(item === 'Profil' ? 'about' : item.toLowerCase()); setLegalView(null); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className={`flex flex-col items-center gap-1 text-[10px] font-bold uppercase tracking-widest transition-all ${activeTab === (item === 'Profil' ? 'about' : item.toLowerCase()) && !legalView ? 'text-cyan-500 scale-105' : ''}`}>
+              <button type="button" key={item} onClick={() => { setActiveTab(item === 'Profil' ? 'about' : item.toLowerCase()); setLegalView(null); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className={`flex flex-col items-center gap-1 text-[10px] font-bold uppercase tracking-widest transition-all ${activeTab === (item === 'Profil' ? 'about' : item.toLowerCase()) && !legalView ? 'text-cyan-500 scale-105' : ''}`}>
                 {item === 'Portfolio' && <Code size={20} />}
                 {item === 'Profil' && <User size={20} />}
                 {item === 'Kontakt' && <Mail size={20} />}
@@ -846,15 +849,6 @@ export default function App() {
               </button>
           ))}
       </div>
-    </>
-  );
-
-  return (
-    <div className={`min-h-screen font-sans transition-colors duration-500 ${darkMode ? 'bg-black' : 'bg-slate-50'}`}>
-      <style>{styles}</style>
-      {/* <Analytics /> */}
-      <WaveBackground darkMode={darkMode} />
-      <Navigation />
 
       <main className="max-w-6xl mx-auto px-4 pb-32 pt-20 relative z-10">
 
